@@ -2,8 +2,9 @@
 #include <iostream>
 
 int main(int argc, const char * argv[]) {
-    string arg(argv[1]);
-    auto solver = SanajahtiSolver(4, 4, arg, "/Users/jma/Downloads/kotus-sanalista_v1 2/kotus-sanalista_v1.xml");
+    string arg1(argv[1]);
+    string arg2(argv[2]);
+    auto solver = SanajahtiSolver(4, 4, arg2, arg1);
     auto results = solver.solve();
     
     for (auto& s: results) {

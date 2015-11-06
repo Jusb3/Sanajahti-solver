@@ -12,14 +12,20 @@ SanajahtiSolver::SanajahtiSolver(int xsize,
     xsize_ = xsize;
     ysize_ = ysize;
     
-    // currently only parses kotus xml file
+    // currently only parses basic files
     while (getline(sanakirja, s)) {
+        /*
         string word;
+
         replace(s.begin(), s.end(), '<', ' ');
         replace(s.begin(), s.end(), '>', ' ');
         std::stringstream ss(s);
+
         ss >> sink >> sink >> word;
+
         words_[word] = true;
+        */
+        words_[s] = true;
     }
     tiles_ = tiles;
 }
