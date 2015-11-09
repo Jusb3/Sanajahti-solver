@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include <tuple>
+#include <algorithm>
 
 // node of trie, stores info about, the character, children (chars and vector indices), parent, and if the word from
 // root to this node is a complete word

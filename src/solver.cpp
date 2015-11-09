@@ -50,7 +50,7 @@ vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve() {
     results_.erase(last, results_.end());
 
     return results_;
-};
+}
 
 void SanajahtiSolver::solveRecursive(string prev,
                                 vector<vector<bool>> visited,
