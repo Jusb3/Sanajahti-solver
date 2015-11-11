@@ -1,12 +1,12 @@
 #include "solver.hpp"
+#include "UI.hpp"
 #include <iostream>
 #include <fstream>
 
 int main(int argc, const char * argv[]) {
-    string arg1(argv[1]);
-    string arg2(argv[2]);
-
-    std::ifstream sanat(arg1);
+    auto ui= UI();
+    ui.Run();
+    std::ifstream sanat(ui.GetLibrary());
     std::vector<string> words;
     std::string line;
 
@@ -23,7 +23,7 @@ int main(int argc, const char * argv[]) {
     }
 
     // construct solver with words and solve sanajahti
-    auto solver = SanajahtiSolver(words, arg2, 4, 4);
+    auto solver = SanajahtiSolver(words, ui.GetGrid(), ui.GetX(), ui.GetY());
     auto results = solver.solve();
 
     // display results
