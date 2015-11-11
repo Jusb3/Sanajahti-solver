@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[])
+{
     auto ui= UI();
     ui.Run();
     std::ifstream sanat(ui.GetLibrary());

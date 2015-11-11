@@ -1,7 +1,8 @@
 #include "trie.hpp"
 
 Trie::Trie() {}
-Trie::Trie(const std::vector<std::string> words) {
+Trie::Trie(const std::vector<std::string> words)
+{
     // construct root and put all words into trie
     auto root = TrieNode(-1, 0);
     store_.push_back(root);
@@ -10,7 +11,8 @@ Trie::Trie(const std::vector<std::string> words) {
     }
 }
 
-void Trie::add(const std::string& word) {
+void Trie::add(const std::string& word)
+{
     // iterate over chars in word, traversing into right child node, or if it doesn't exist, create one
     int nodeIdx = 0;
     int endidx = (int)(word.length());
@@ -38,10 +40,12 @@ void Trie::add(const std::string& word) {
     return;
 }
 
-const TrieNode& Trie::getNode(const int nodeIdx) const {
+const TrieNode& Trie::getNode(const int nodeIdx) const
+{
     return store_[nodeIdx];
 }
 
-int Trie::getSize() {
+int Trie::getSize()
+{
     return (int)store_.size();
 }

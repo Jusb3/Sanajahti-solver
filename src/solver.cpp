@@ -4,7 +4,8 @@ using std::string;
 
 // main contructor, takes reference to wordlist vector, and the Sanajahti grid, and its dimensions
 // constructs a Trie (prefix tree) and initializes variables
-SanajahtiSolver::SanajahtiSolver(const vector<string>& words, const string& grid, int x, int y): tr_(words) {
+SanajahtiSolver::SanajahtiSolver(const vector<string>& words, const string& grid, int x, int y): tr_(words)
+{
     tiles_ = grid;
     xsize_ = x;
     ysize_ = y;
@@ -12,7 +13,8 @@ SanajahtiSolver::SanajahtiSolver(const vector<string>& words, const string& grid
 
 // does the solving, using the Trie
 // returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
-vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve() {
+vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve()
+{
 
     // initialize a vector of visited tiles, used when going through the grid
     vector<vector<bool>> visited;
@@ -96,13 +98,15 @@ void SanajahtiSolver::solveRecursive(string prev,
 }
 
 // check that x, y not visited and not outside bounds
-bool SanajahtiSolver::possibleNext(int x, int y, const vector<vector<bool>>& visited) {
+bool SanajahtiSolver::possibleNext(int x, int y, const vector<vector<bool>>& visited)
+{
     if (x < 0 || y < 0 || x >= xsize_ || y >= ysize_)
         return false;
     return !(visited[x][y]);
 }
 
 // get char of Sanajahti grid tile
-char SanajahtiSolver::getTile(int x, int y) {
+char SanajahtiSolver::getTile(int x, int y)
+{
     return tiles_[y*xsize_ + x];
 }
