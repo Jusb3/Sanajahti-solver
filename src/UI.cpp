@@ -13,10 +13,10 @@ void UI::Run()
 	std::vector<std::string> rows;
 	std::string row;
 	std::cout << "Enter wordlist:";
-	std::cin >> library;
+	getline(std::cin, library);
 	do
 	{
-		std::cout << "Enter the Sanajahti grid, row by row, separated by enter, empty row ends the entry:\n";
+		std::cout << "Enter the Sanajahti grid, row by row, separated by enter.\nEmpty row ends the entry:\n";
 		while(getline(std::cin, row))
 			if (row.empty())
 				break;
