@@ -1,12 +1,11 @@
 #include "ocr.hpp"
 
-
 OCR::OCR(QString path)
 {
     img.load(path);
-    matrix.resize(img.width());
+    matrix.resize((unsigned long)img.width());
     for ( int i = 0 ; i < img.width() ; i++ )
-       matrix[i].resize(img.height());
+       matrix[i].resize((unsigned long)img.height());
     findDots();
     getGridSize();
 }

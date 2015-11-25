@@ -5,6 +5,8 @@
 #include <QColor>
 #include <QtDebug>
 #include <iostream>
+#include <cmath>
+
 class OCR
 {
 public:
