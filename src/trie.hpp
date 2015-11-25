@@ -13,7 +13,7 @@ struct TrieNode {
     int parentIdx;
     char nodeChar;
     // vector of pairs (child char, child vector index)
-    std::vector<std::pair<char, int>> children;
+    std::vector<std::pair<char, int> > children;
     bool isWordEnd;
     TrieNode(int parentIdx, char nodeChar): parentIdx(parentIdx), nodeChar(nodeChar), isWordEnd(false) {}
 };

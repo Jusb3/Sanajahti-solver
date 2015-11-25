@@ -20,18 +20,18 @@ public:
 
     // does the solving, using the Trie
     // returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
-    vector<pair<string, vector<pair<int, int>>>> solve();
+    vector<pair<string, vector<pair<int, int> > > > solve();
 
 private:
     // main recursive solving function of solver
     void solveRecursive(string prev,
-                        vector<vector<bool>> visited,
+                        vector<vector<bool> > visited,
                         int x, int y,
-                        vector<pair<int, int>> curRoute,
+                        vector<pair<int, int> > curRoute,
                         int nodeIdx);
 
     // function to check if indices x, y within boundaries
-    bool possibleNext(int x, int y, const vector<vector<bool>>& visited);
+    bool possibleNext(int x, int y, const vector<vector<bool> >& visited);
 
     // function to access a tile in sanajahti grid
     char getTile(int x, int y);
@@ -47,7 +47,7 @@ private:
     Trie tr_;
 
     // vector of results, cleared and rebuilt when solve() called
-    vector<pair<string, vector<pair<int, int>>>> results_;
+    vector<pair<string, vector<pair<int, int> > > > results_;
 };
 
 
