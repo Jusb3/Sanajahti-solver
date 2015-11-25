@@ -11,6 +11,8 @@ add_library(deps
         src/trie.hpp
         src/UI.cpp
         src/UI.hpp
+        src/adb_screenshot.cpp
+        src/adb_screenshot.hpp
 )
 
 target_link_libraries(sanajahti1 deps)

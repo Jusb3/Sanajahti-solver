@@ -1,5 +1,6 @@
 #include "solver.hpp"
 #include "UI.hpp"
+#include "adb_screenshot.hpp"
 #include <iostream>
 #include <fstream>
 
@@ -7,6 +8,7 @@ int main(int argc, const char * argv[])
 {
     auto ui= UI();
     ui.Run();
+
     std::ifstream sanat(ui.GetLibrary());
     std::vector<string> words;
     std::string line;
