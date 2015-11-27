@@ -24,8 +24,8 @@ Trie::Trie(const std::vector<QString>& words)
                 char64 = char64 | ((nextadded) << (8*i));
             }
             word64.push_back(char64);
+            prevbound = nextBoundary;
         }
-        //std::cout << word64 << std::endl;
         add(word64);
     }
 }
