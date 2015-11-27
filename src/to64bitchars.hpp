@@ -2,7 +2,7 @@
 #ifndef SANAJAHTI1_TO64BITCHARS_HPP
 #define SANAJAHTI1_TO64BITCHARS_HPP
 
-#include <_types/_uint64_t.h>
+#include <cstdint>
 #include <vector>
 #include <string>
 #include <QString>
