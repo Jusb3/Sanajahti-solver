@@ -1,35 +1,21 @@
 #include "trie.hpp"
+#include "to64bitchars.hpp"
 
 Trie::Trie() {}
 Trie::Trie(const std::vector<QString>& words)
 {
-    // construct root and put all words into trie
+    // construct root and put it into Trie
     auto root = TrieNode(-1, 0);
     store_.push_back(root);
-    for (auto& word: words) {
-        const auto normWord = word.normalized(QString::NormalizationForm_C);
 
-        std::vector<uint64_t> word64;
-        int prevbound = 0;
-        auto boundFinder = QTextBoundaryFinder(QTextBoundaryFinder::Grapheme, normWord);
-        while (true) {
-            const auto nextBoundary = boundFinder.toNextBoundary();
-            if (nextBoundary == -1)
-                break;
-            auto thisSlice = normWord.mid(prevbound, nextBoundary-prevbound).toUtf8();
-            uint64_t char64 = 0;
-            for (int i = 0; i < thisSlice.length(); i++) {
-                unsigned char nextadded;
-                nextadded = reinterpret_cast<unsigned char&>(thisSlice.data()[i]);
-                char64 = char64 | ((nextadded) << (8*i));
-            }
-            word64.push_back(char64);
-            prevbound = nextBoundary;
-        }
-        add(word64);
+    // for each word in wordlist, normalize unicode and encode string to custom 64-bit fixed-width format
+    for (auto& word: words) {
+        const auto encodedWord = to64bitChars(word);
+        add(encodedWord);
     }
 }
 
+// add a word to the Trie structure
 void Trie::add(const std::vector<uint64_t>& word)
 {
     // iterate over chars in word, traversing into right child node, or if it doesn't exist, create one
@@ -59,11 +45,13 @@ void Trie::add(const std::vector<uint64_t>& word)
     return;
 }
 
+// get a node from trie
 const TrieNode& Trie::getNode(const int nodeIdx) const
 {
     return store_[nodeIdx];
 }
 
+// get the amount of nodes in trie
 int Trie::getSize()
 {
     return (int)store_.size();

@@ -1,4 +1,5 @@
 #include "console.hpp"
+#include "to64bitchars.hpp"
 
 Console::Console()
 {
@@ -9,11 +10,11 @@ Console::Console()
 
 void Console::run()
 {
-    // does not work at the moment
     std::vector<std::string> rows;
     std::string row;
     std::cout << "Enter wordlist:";
     std::getline(std::cin, library);
+
     do {
         rows.clear();
         std::cout << "Enter the Sanajahti grid, row by row, separated by enter, empty row ends the entry:\n";
@@ -23,10 +24,15 @@ void Console::run()
             else
                 rows.push_back(row);
     } while(!isValidGrid(rows));
+
     x_size = (int)rows[0].length();
     y_size = (int)rows.size();
-    for (auto& row: rows) {
-       // grid.push_back(row);
+
+    for (auto& r: rows) {
+        const auto encodedChars = to64bitChars(r);
+        for (auto c: encodedChars) {
+            grid.push_back(c);
+        }
     }
 }
 

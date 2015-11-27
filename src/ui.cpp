@@ -1,6 +1,7 @@
 #include "ui.hpp"
 #include "console.hpp"
 #include <QApplication>
+#include <fstream>
 
 UI::UI(std::string option)
 {
@@ -8,7 +9,7 @@ UI::UI(std::string option)
         auto cons = Console();
         cons.run();
         std::ifstream sanat(cons.getLibrary());
-        std::vector<string> words;
+        //std::vector<string> words;
         std::vector<QString> Qwords;
         std::string line;
 

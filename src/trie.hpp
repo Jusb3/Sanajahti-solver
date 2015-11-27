@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SANAJAHTI1_TRIE_HPP
 #define SANAJAHTI1_TRIE_HPP
 
@@ -7,7 +8,6 @@
 #include <tuple>
 #include <algorithm>
 #include <QString>
-#include <QTextBoundaryFinder>
 
 // node of trie, stores info about, the character, children (chars and vector indices), parent, and if the word from
 // root to this node is a complete word

@@ -1,13 +1,15 @@
 #include <QtWidgets>
 #include <chrono>
 #include "window.hpp"
+#include <fstream>
 
+// helper overload for easier debugging
 std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
     os << "[";
     for (auto x: v) {
         os << " " << x;
     }
-    os << "]";
+    os << " ]";
     return os;
 }
 
@@ -78,7 +80,7 @@ Window::Window()
     mapper = new QSignalMapper(this);
     connect(mapper, SIGNAL(mapped(int)), this, SLOT(valueChange(int)));
 
-    //call function to creat 4x4 grid
+    //call function to create 4x4 grid
     makeGrid(4,4);
 }
 
@@ -121,7 +123,7 @@ void Window::manual_start()
     ypanel->setDisabled(true);
 
     std::ifstream sanat(getLibrary());
-    std::vector<std::string> words;
+    //std::vector<std::string> words;
     std::vector<QString> Qwords;
     std::string line;
     /*
@@ -193,9 +195,9 @@ void Window::drawWord(const QString &word)
 {
     std::string std_word=word.toUtf8().constData();
     for (auto obj : result)
-        if (obj.first==std_word){
-            for (auto obj : tiles) {
-                obj->setStyleSheet("background-color:grey;"
+        if (obj.first == std_word){
+            for (auto tileObj : tiles) {
+                tileObj->setStyleSheet("background-color:grey;"
                                    "color:black");
             }
             for (auto route : obj.second) {
@@ -224,11 +226,13 @@ std::string Window::getLibrary()
     return library_path->text().toUtf8().constData();
 }
 
+// get the inputted character grid and return a vector of it
+// encodes the characters in the grid to a custom 64-bit fixed-width format
 std::vector<uint64_t> Window::getGrid()
 {
     std::vector<uint64_t> grid;
     for(auto obj: tiles) {
-        const auto tileText = obj->text().toLower();//.toUtf8().constData();
+        const auto tileText = obj->text().toLower();
         const auto normalizedTileText = tileText.normalized(QString::NormalizationForm_C);
         auto utf8Tile = normalizedTileText.toUtf8();
         uint64_t tile = 0;
@@ -236,12 +240,9 @@ std::vector<uint64_t> Window::getGrid()
             unsigned char nextadded;
             nextadded = reinterpret_cast<unsigned char&>(utf8Tile.data()[i]);
             tile = tile | ((nextadded) << (8*i));
-            //std::cout << utf8Tile[i] << std::endl;
-            //std::cout << tile << std::endl;
         }
         grid.push_back(tile);
     }
-    std::cout << grid << std::endl;
     return grid;
 }
 
@@ -282,8 +283,8 @@ int Window::getY()
 QLineEdit* Window::addTile(int x, int y)
 {
     QLineEdit* tile = new QLineEdit("",this);
-    tile->move(5+40*x,120+40*y);
-    tile->setFixedSize(30,30);
+    tile->move(5+40*x, 120+40*y);
+    tile->setFixedSize(30, 30);
     tile->setMaxLength(1);
     QFont font=tile->font();
     font.setPointSize(14);
@@ -296,7 +297,7 @@ bool longLex(const pair<string, vector<pair<int, int>>>& a,
              const pair<string, vector<pair<int, int>>>& b)
 {
     if (a.first.length() == b.first.length())
-        for (unsigned j=0; j < a.first.length(); j++)
+        for (unsigned j = 0; j < a.first.length(); j++)
             if (a.first.at(j) != b.first.at(j))
                 return a.first.at(j) < b.first.at(j);
     return a.first.length() > b.first.length();

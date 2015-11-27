@@ -1,11 +1,10 @@
+#pragma once
 #ifndef OCR_H
 #define OCR_H
+
 #include <QImage>
 #include <QString>
 #include <QColor>
-#include <QtDebug>
-#include <iostream>
-#include <cmath>
 
 class OCR
 {
@@ -26,7 +25,7 @@ private:
                                                            int x, int y);
     void getGridSize();
     void findDots();
-    void trackLetters();
+    //void trackLetters();
     int countMatches(std::pair<std::pair<int,int>,std::pair<int,int>> rect, int index);
     std::vector<std::vector<std::vector<int>>> letters={{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

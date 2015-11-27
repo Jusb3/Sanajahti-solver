@@ -1,4 +1,7 @@
 #include "ocr.hpp"
+#include <QtDebug>
+#include <iostream>
+#include <cmath>
 
 OCR::OCR(QString path)
 {

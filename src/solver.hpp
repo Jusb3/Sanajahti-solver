@@ -1,3 +1,4 @@
+#pragma once
 #ifndef solver_hpp
 #define solver_hpp
 

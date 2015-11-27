@@ -1,12 +1,11 @@
+#pragma once
 #ifndef WINDOW_H
 #define WINDOW_H
+
 #include "solver.hpp"
-#include <fstream>
-#include <QWidget>
 #include <QSignalMapper>
 #include <QPushButton>
 #include <QComboBox>
-#include <QDebug>
 #include "ocr.hpp"
 
 class QLineEdit;

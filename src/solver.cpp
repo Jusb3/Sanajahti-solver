@@ -2,7 +2,10 @@
 
 using std::string;
 
-// main contructor, takes reference to wordlist vector, and the Sanajahti grid, and its dimensions
+// main contructor, takes reference to wordlist vector (vector of QStrings)
+// and the Sanajahti grid, and its dimensions
+// The sanajahti grid must be a vector of uint64_t:s
+// each of which corresponds to one grapheme of utf-8 bytes.
 // constructs a Trie (prefix tree) and initializes variables
 SanajahtiSolver::SanajahtiSolver(
         const vector<QString>& words,
