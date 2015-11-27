@@ -13,15 +13,15 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5Widgets)
 
 # Tell CMake to create the helloworld executable
-add_executable(sanajahti1 WIN32 src/main.cpp)
+add_executable(sanajahti1 src/main.cpp)
 
 add_library(deps
         src/solver.cpp
         src/solver.hpp
         src/trie.cpp
         src/trie.hpp
-        src/UI.cpp
-        src/UI.hpp
+        src/ui.cpp
+        src/ui.hpp
         src/adb_screenshot.cpp
         src/adb_screenshot.hpp
         src/window.cpp
