@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.3)
 project(sanajahti1)
 set(CMAKE_PREFIX_PATH "/Users/jma/Qt/5.5/clang_64/lib/cmake/")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -pedantic -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -pedantic -std=c++11")
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

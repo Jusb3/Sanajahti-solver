@@ -2,19 +2,19 @@
 
 Console::Console()
 {
-    grid="";
-    x_size=0;
-    y_size=0;
-    library="";
+    x_size = 0;
+    y_size = 0;
+    library = "";
 }
 
 void Console::run()
 {
+    // does not work at the moment
     std::vector<std::string> rows;
     std::string row;
     std::cout << "Enter wordlist:";
     std::getline(std::cin, library);
-    do{
+    do {
         rows.clear();
         std::cout << "Enter the Sanajahti grid, row by row, separated by enter, empty row ends the entry:\n";
         while(getline(std::cin, row))
@@ -22,11 +22,12 @@ void Console::run()
                 break;
             else
                 rows.push_back(row);
-    }while(!isValidGrid(rows));
-    x_size=rows[0].length();
-    y_size=rows.size();
-    for(unsigned int count=0;count<rows.size();count++)
-        grid+=rows[count];
+    } while(!isValidGrid(rows));
+    x_size = (int)rows[0].length();
+    y_size = (int)rows.size();
+    for (auto& row: rows) {
+       // grid.push_back(row);
+    }
 }
 
 std::string Console::getLibrary()
@@ -34,7 +35,7 @@ std::string Console::getLibrary()
     return library;
 }
 
-std::string Console::getGrid()
+std::vector<uint64_t> Console::getGrid()
 {
     return grid;
 }
@@ -51,12 +52,12 @@ int Console::getY()
 
 bool isValidGrid(std::vector<std::string> rows)
 {
-    if(rows.size()==0){
+    if (rows.size() == 0) {
         std::cout << "The grid cannot be empty.\nPlease type the asked parameters again.\n";
         return false;
     }
-    for(unsigned int count=1;count<rows.size();count++)
-        if(rows[count].length()!=rows[0].length()){
+    for (unsigned int count=1; count<rows.size(); count++)
+        if (rows[count].length() != rows[0].length()){
             std::cout << "The grid is not rectangular.\nPlease type the asked parameters again.\n";
             return false;
         }

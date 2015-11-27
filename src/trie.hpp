@@ -6,16 +6,18 @@
 #include <string>
 #include <tuple>
 #include <algorithm>
+#include <QString>
+#include <QTextBoundaryFinder>
 
 // node of trie, stores info about, the character, children (chars and vector indices), parent, and if the word from
 // root to this node is a complete word
 struct TrieNode {
     int parentIdx;
-    char nodeChar;
+    uint64_t nodeChar;
     // vector of pairs (child char, child vector index)
-    std::vector<std::pair<char, int> > children;
+    std::vector<std::pair<uint64_t, int>> children;
     bool isWordEnd;
-    TrieNode(int parentIdx, char nodeChar): parentIdx(parentIdx), nodeChar(nodeChar), isWordEnd(false) {}
+    TrieNode(int parentIdx, uint64_t nodeChar): parentIdx(parentIdx), nodeChar(nodeChar), isWordEnd(false) {}
 };
 
 // The trie class itself, stores TrieNodes
@@ -23,9 +25,9 @@ class Trie {
 public:
     Trie();
     // construct trie with words
-    Trie(const std::vector<std::string> words);
+    Trie(const std::vector<QString>& words);
     // add word to trie
-    void add(const std::string& word);
+    void add(const std::vector<uint64_t>& word);
     // get reference to a TrieNode
     const TrieNode& getNode(const int nodeIdx) const;
     // get the amount of TrieNodes stored

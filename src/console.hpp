@@ -3,17 +3,17 @@
 #include <iostream>
 #include <vector>
 
-class Console{
+class Console {
 public:
     Console();
     void run();
     std::string getLibrary();
-    std::string getGrid();
+    std::vector<uint64_t> getGrid();
     int getX();
     int getY();
 private:
     std::string library; 
-    std::string grid; 
+    std::vector<uint64_t> grid;
     int x_size;
     int y_size;
 };

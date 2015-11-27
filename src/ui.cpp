@@ -4,16 +4,16 @@
 
 UI::UI(std::string option)
 {
-
-    if(option=="console"){
-        auto cons=Console();
+    if (option == "console"){
+        auto cons = Console();
         cons.run();
         std::ifstream sanat(cons.getLibrary());
         std::vector<string> words;
+        std::vector<QString> Qwords;
         std::string line;
 
         // read words to vector and filter non-ascii
-        while (std::getline(sanat, line)) {
+        /*while (std::getline(sanat, line)) {
             // filter out non-ascii words (first bit 1 in char)
             bool valid = true;
             for (auto c: line) {
@@ -22,10 +22,13 @@ UI::UI(std::string option)
             }
             if (valid)
                 words.push_back(line);
+        }*/
+        while (std::getline(sanat, line)) {
+            Qwords.push_back(QString(line.data()));
         }
 
         // construct solver with words and solve sanajahti
-        auto solver = SanajahtiSolver(words, cons.getGrid(), cons.getX(), cons.getY());
+        auto solver = SanajahtiSolver(Qwords, cons.getGrid(), cons.getX(), cons.getY());
         auto results = solver.solve();
 
         // display results
@@ -39,9 +42,9 @@ UI::UI(std::string option)
             std::cout << std::endl;
         }
     }
-    else{
+    else {
         char **argv = {};
-        int argc=0;
+        int argc = 0;
         QApplication app(argc, argv);
         Window window;
         window.show();

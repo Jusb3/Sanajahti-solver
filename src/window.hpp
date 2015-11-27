@@ -20,7 +20,7 @@ public:
     int getX();
     int getY();
     std::string getLibrary();
-    std::string getGrid();
+    std::vector<uint64_t>getGrid();
 private:
     QLineEdit* addTile(int x, int y);
     void makeGrid(int x, int y);
