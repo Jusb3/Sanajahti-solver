@@ -122,28 +122,7 @@ void Window::manual_start()
     xpanel->setDisabled(true);
     ypanel->setDisabled(true);
 
-    std::ifstream sanat(getLibrary());
-    //std::vector<std::string> words;
-    std::vector<QString> Qwords;
-    std::string line;
-    /*
-    while (std::getline(sanat, line)) {
-        // filter out non-ascii words (first bit 1 in char)
-        bool valid = true;
-        for (auto c: line) {
-            if (c >> 7 != 0)
-                valid = false;
-        }
-        if (valid)
-           words.push_back(line);
-    }
-     */
-    while (std::getline(sanat, line)) {
-        Qwords.push_back(QString(line.data()));
-    }
-
-    // construct solver with words and solve sanajahti
-    auto solver = SanajahtiSolver(Qwords);
+    // solve sanajahti
     result = solver.solve(getGrid(), getX(), getY());
 
     std::sort(result.begin(), result.end(), longLex);
@@ -168,6 +147,14 @@ bool Window::gridFilled()
 void Window::browse()
 {
     library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), qApp->applicationDirPath(), "All files (*.*)"));
+    std::ifstream sanat(getLibrary());
+    std::vector<QString> Qwords;
+    std::string line;
+    while (std::getline(sanat, line)) {
+        Qwords.push_back(QString(line.data()));
+    }
+    // construct solver with words
+    solver = SanajahtiSolver(Qwords);
 }
 
 void Window::gridChange()

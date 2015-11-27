@@ -36,6 +36,7 @@ private:
     QSignalMapper* mapper;
     QComboBox* list;
     vector<pair<string, vector<pair<int, int>>>> result;
+    SanajahtiSolver solver;
 private slots:
     void valueChange(int id);
     void gridChange();

@@ -10,6 +10,8 @@ using std::string;
 SanajahtiSolver::SanajahtiSolver(
         const vector<QString>& words): tr_(words) {}
 
+SanajahtiSolver::SanajahtiSolver(): tr_() {}
+
 // does the solving, using the Trie
 // returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
 vector<pair<string, vector<pair<int, int>>>>
