@@ -29,8 +29,8 @@ UI::UI(std::string option)
         }
 
         // construct solver with words and solve sanajahti
-        auto solver = SanajahtiSolver(Qwords, cons.getGrid(), cons.getX(), cons.getY());
-        auto results = solver.solve();
+        auto solver = SanajahtiSolver(Qwords);
+        auto results = solver.solve(cons.getGrid(), cons.getX(), cons.getY());
 
         // display results
         for (auto& s: results) {

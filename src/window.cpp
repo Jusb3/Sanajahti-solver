@@ -143,8 +143,8 @@ void Window::manual_start()
     }
 
     // construct solver with words and solve sanajahti
-    auto solver = SanajahtiSolver(Qwords, getGrid(), getX(), getY());
-    result = solver.solve();
+    auto solver = SanajahtiSolver(Qwords);
+    result = solver.solve(getGrid(), getX(), getY());
 
     std::sort(result.begin(), result.end(), longLex);
     fillList();

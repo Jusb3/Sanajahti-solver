@@ -8,20 +8,16 @@ using std::string;
 // each of which corresponds to one grapheme of utf-8 bytes.
 // constructs a Trie (prefix tree) and initializes variables
 SanajahtiSolver::SanajahtiSolver(
-        const vector<QString>& words,
-        const vector<uint64_t>& grid,
-        int x, int y): tr_(words)
+        const vector<QString>& words): tr_(words) {}
+
+// does the solving, using the Trie
+// returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
+vector<pair<string, vector<pair<int, int>>>>
+SanajahtiSolver::solve(const vector<uint64_t>& grid, int x, int y)
 {
     tiles_ = grid;
     xsize_ = x;
     ysize_ = y;
-}
-
-// does the solving, using the Trie
-// returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
-vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve()
-{
-
     // initialize a vector of visited tiles, used when going through the grid
     vector<vector<bool>> visited;
     visited.resize((unsigned long)xsize_);

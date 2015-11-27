@@ -18,11 +18,11 @@ public:
 
     // main contructor, takes reference to wordlist vector, and the Sanajahti grid, and its dimensions
     // constructs a Trie (prefix tree) and initializes variables
-    SanajahtiSolver(const vector<QString>& words, const vector<uint64_t>& grid, int x, int y);
+    SanajahtiSolver(const vector<QString>& words);
 
     // does the solving, using the Trie
     // returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
-    vector<pair<string, vector<pair<int, int>>>> solve();
+    vector<pair<string, vector<pair<int, int>>>> solve(const vector<uint64_t>& grid, int x, int y);
 
 private:
     // main recursive solving function of solver
