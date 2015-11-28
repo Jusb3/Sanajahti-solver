@@ -115,7 +115,7 @@ void Window::manual_start()
         QMessageBox::information(this, tr("Error"), QString("You need to specify the library to use!"));
         return;
     }
-    for (auto obj:tiles)
+    for (auto obj : tiles)
         obj->setDisabled(true);
     start_button->setHidden(true);
     restart_button->setHidden(false);

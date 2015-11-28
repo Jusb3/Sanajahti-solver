@@ -20,6 +20,7 @@ SanajahtiSolver::solve(const vector<uint64_t>& grid, int x, int y)
     tiles_ = grid;
     xsize_ = x;
     ysize_ = y;
+    results_.clear();
     // initialize a vector of visited tiles, used when going through the grid
     vector<vector<bool>> visited;
     visited.resize((unsigned long)xsize_);
