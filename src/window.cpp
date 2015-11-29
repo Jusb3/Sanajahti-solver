@@ -1,6 +1,7 @@
 #include <QtWidgets>
 #include <chrono>
 #include "window.hpp"
+#include "adb_screenshot.hpp"
 
 Window::Window()
 {
@@ -87,7 +88,13 @@ void Window::adb_start()
     xpanel->setText(QString::number(4));
     ypanel->setText(QString::number(4));
     gridChange();
-    OCR ocr("C:\\Users\\Juuso\\Documents\\Sanajahti\\grid.png");
+    auto adbscr = ADBScreenshot();
+    bool success = adbscr.TakeScreenshot("grid.png");
+    if(!success){
+        QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
+        return;
+    }
+    OCR ocr("grid.png");
     for(int a=0;a<16;a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1,a/4-1)));
 }

@@ -20,12 +20,14 @@ SOURCES += main.cpp \
     trie.cpp \
     ocr.cpp \
     console.cpp \
-    ui.cpp
+    ui.cpp \
+    adb_screenshot.cpp
 HEADERS  += \
     solver.hpp \
     trie.hpp \
     ocr.hpp \
     window.hpp \
     console.hpp \
-    ui.hpp
+    ui.hpp \
+    adb_screenshot.hpp
 

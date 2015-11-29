@@ -15,7 +15,7 @@
 ADBScreenshot::ADBScreenshot(){
 }
 
-bool ADBScreenshot::TakeScreenshot() {
+bool ADBScreenshot::TakeScreenshot(const std::string &name) {
 	int is_adb = system("adb version");
 	if(is_adb != 0){
 		std::cerr<<"ADB is not installed!"<<std::endl;
@@ -30,7 +30,8 @@ bool ADBScreenshot::TakeScreenshot() {
 	}
 
 	// pull the file from the sdcard & remove it at the same time
-	succ = system("adb pull /sdcard/sanajahtiscr.png ./sanajahtiscr.png");
+	std::string pull_cmd = std::string("adb pull /sdcard/sanajahtiscr.png ./") + name;
+	succ = system(pull_cmd.c_str());
 	int rmsucc = system("adb shell rm /sdcard/sanajahtiscr.png");
 	if(succ != 0){
 		std::cerr<<"Failed to fetch the screenshot from the mobile device!"<<std::endl;
