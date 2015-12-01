@@ -1,11 +1,13 @@
-#pragma once
 #ifndef WINDOW_H
 #define WINDOW_H
-
+#pragma once
 #include "solver.hpp"
+#include <fstream>
+#include <QWidget>
 #include <QSignalMapper>
 #include <QPushButton>
 #include <QComboBox>
+#include <QDebug>
 #include "ocr.hpp"
 
 class QLineEdit;
@@ -19,7 +21,7 @@ public:
     int getX();
     int getY();
     std::string getLibrary();
-    std::vector<uint64_t>getGrid();
+    std::vector<uint64_t> getGrid();
 private:
     QLineEdit* addTile(int x, int y);
     void makeGrid(int x, int y);
@@ -35,8 +37,8 @@ private:
     QPushButton* adb_button;
     QSignalMapper* mapper;
     QComboBox* list;
-    vector<pair<string, vector<pair<int, int>>>> result;
     SanajahtiSolver solver;
+    vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
     void valueChange(int id);
     void gridChange();
