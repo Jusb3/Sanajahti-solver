@@ -16,6 +16,8 @@ std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
 
 Window::Window()
 {
+
+    this->setWindowTitle("Sanajahti");
     //init some text labels
     QLabel* label1 = new QLabel("X size:", this);
     label1->move(5,5);
@@ -105,14 +107,23 @@ void Window::adb_start()
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
         return;
     }
-    OCR ocr("grid.png");
+    OCR ocr;
+    ocr.init("grid.png");
+    if(ocr.findDots())
+        ocr.getGridSize();
+    else{
+        QMessageBox::information(this, tr("Error"), QString("There was a problem identifying the grid."));
+        return;
+    }
     for (int a = 0; a < 16; a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1, a/4-1)));
+    solve();
+    thread.init(ocr, result, qApp->applicationDirPath().toStdString());
+    thread.start();
 }
 
 void Window::manual_start()
 {
-    this->setWindowTitle("Sanajahti");
     list->clear();
     if (!gridFilled()){
         QMessageBox::information(this, tr("Error"), QString("You need to complete the grid!"));
@@ -122,6 +133,12 @@ void Window::manual_start()
         QMessageBox::information(this, tr("Error"), QString("You need to specify the library to use!"));
         return;
     }
+    solve();
+}
+
+void Window::solve()
+{
+
     for (auto obj : tiles)
         obj->setDisabled(true);
     start_button->setHidden(true);

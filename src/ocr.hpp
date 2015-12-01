@@ -9,8 +9,12 @@
 class OCR
 {
 public:
-    OCR(QString path);
+    OCR();
+    void init(QString path);
     std::string identifyLetter(int x, int y);
+    void getGridSize();
+    bool findDots();
+    std::pair<int,int> getTileCoordinate(int x, int y);
 private:
     std::vector<std::vector<int>> matrix;
     QImage img;
@@ -21,10 +25,7 @@ private:
     std::pair<std::pair<int,int>,std::pair<int,int>> track_dot(int x,int y);
     std::pair<std::pair<int,int>,std::pair<int,int>> merge(std::pair<std::pair<int,int>,std::pair<int,int>> a,
                                                            std::pair<std::pair<int,int>,std::pair<int,int>> b);
-    std::pair<std::pair<int,int>,std::pair<int,int>> merge(std::pair<std::pair<int,int>,std::pair<int,int>> a,
-                                                           int x, int y);
-    void getGridSize();
-    void findDots();
+    std::pair<std::pair<int,int>,std::pair<int,int>> merge(std::pair<std::pair<int,int>,std::pair<int,int>> a, int x, int y);
     //void trackLetters();
     int countMatches(std::pair<std::pair<int,int>,std::pair<int,int>> rect, int index);
     std::vector<std::vector<std::vector<int>>> letters={{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},

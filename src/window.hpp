@@ -9,6 +9,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include "ocr.hpp"
+#include "solver_thread.hpp"
 
 class QLineEdit;
 class QString;
@@ -27,6 +28,7 @@ private:
     void makeGrid(int x, int y);
     bool gridFilled();
     void fillList();
+    void solve();
     QVector<QLineEdit*> tiles;
     QLineEdit* xpanel;
     QLineEdit* ypanel;
@@ -38,6 +40,7 @@ private:
     QSignalMapper* mapper;
     QComboBox* list;
     SanajahtiSolver solver;
+    SolverThread thread;
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
     void valueChange(int id);
