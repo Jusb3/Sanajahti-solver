@@ -2,6 +2,7 @@
 #include <chrono>
 #include "window.hpp"
 #include <fstream>
+#include "adb_screenshot.hpp"
 
 // helper overload for easier debugging
 std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
@@ -98,7 +99,13 @@ void Window::adb_start()
     xpanel->setText(QString::number(4));
     ypanel->setText(QString::number(4));
     gridChange();
-    OCR ocr("C:\\Users\\Juuso\\Documents\\Sanajahti\\grid.png");
+    auto adbscr = ADBScreenshot();
+    bool success = adbscr.TakeScreenshot("grid.png");
+    if(!success){
+        QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
+        return;
+    }
+    OCR ocr("grid.png");
     for (int a = 0; a < 16; a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1, a/4-1)));
 }
@@ -124,6 +131,7 @@ void Window::manual_start()
 
     // solve sanajahti
     result = solver.solve(getGrid(), getX(), getY());
+
 
     std::sort(result.begin(), result.end(), longLex);
     fillList();
@@ -283,9 +291,11 @@ QLineEdit* Window::addTile(int x, int y)
 bool longLex(const pair<string, vector<pair<int, int>>>& a,
              const pair<string, vector<pair<int, int>>>& b)
 {
-    if (a.first.length() == b.first.length())
-        for (unsigned j = 0; j < a.first.length(); j++)
-            if (a.first.at(j) != b.first.at(j))
-                return a.first.at(j) < b.first.at(j);
-    return a.first.length() > b.first.length();
+    QString fir= QString::fromStdString(a.first);
+    QString sec= QString::fromStdString(b.first);
+    if (fir.length() == sec.length())
+        for (unsigned j=0; j < fir.length(); j++)
+            if (fir.at(j) != sec.at(j))
+                return fir.at(j) < sec.at(j);
+    return fir.length() > sec.length();
 }

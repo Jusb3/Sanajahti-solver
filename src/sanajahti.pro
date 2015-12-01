@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     ocr.cpp \
     console.cpp \
     ui.cpp \
-    to64bitchars.cpp
+    to64bitchars.cpp \
+    adb_screenshot.cpp
 HEADERS  += \
     solver.hpp \
     trie.hpp \
@@ -29,5 +30,6 @@ HEADERS  += \
     window.hpp \
     console.hpp \
     ui.hpp \
-    to64bitchars.hpp
+    to64bitchars.hpp \
+    adb_screenshot.hpp
 
