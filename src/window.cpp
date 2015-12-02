@@ -118,8 +118,8 @@ void Window::adb_start()
     for (int a = 0; a < 16; a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1, a/4-1)));
     solve();
-    thread.init(ocr, result, qApp->applicationDirPath().toStdString());
-    thread.start();
+    //thread.init(ocr, result, qApp->applicationDirPath().toStdString());
+    //thread.start();
 }
 
 void Window::manual_start()
