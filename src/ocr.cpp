@@ -1,16 +1,29 @@
 #include "ocr.hpp"
+#include <QtDebug>
+#include <iostream>
+#include <cmath>
 
-OCR::OCR(QString path)
+OCR::OCR()
+{
+
+}
+
+void OCR::init(QString path)
 {
     img.load(path);
     matrix.resize((unsigned long)img.width());
     for ( int i = 0 ; i < img.width() ; i++ )
        matrix[i].resize((unsigned long)img.height());
-    findDots();
-    getGridSize();
 }
 
-void OCR::findDots()
+std::pair<int,int> OCR::getTileCoordinate(int x, int y)
+{
+    int coord_x=dot_coordinates.at(0).first+(2*x+1)*grid_size/2;
+    int coord_y=dot_coordinates.at(0).second+(2*y+1)*grid_size/2;
+    return std::make_pair(coord_x,coord_y);
+}
+
+bool OCR::findDots()
 {
     std::pair<std::pair<int,int>,std::pair<int,int>> temp;
     for(int a=0;a<img.width();a++)
@@ -21,6 +34,9 @@ void OCR::findDots()
                 dot_coordinates.push_back(std::make_pair((temp.first.first+temp.second.first)/2,(temp.first.second+temp.second.second)/2));
             }
         }
+    if(dot_coordinates.size()==0)
+        return false;
+    return true;
 }
 
 std::string OCR::identifyLetter(int x, int y)

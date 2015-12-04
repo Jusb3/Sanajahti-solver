@@ -3,7 +3,7 @@
 class ADBScreenshot
 {
 public:
-	ADBScreenshot();
-	bool TakeScreenshot(const std::string &name);
+        ADBScreenshot();
+        bool TakeScreenshot(const std::string &name);
 private:
 };

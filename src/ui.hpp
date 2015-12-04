@@ -1,5 +1,7 @@
+#pragma once
 #ifndef UI_H
 #define UI_H
+
 #include "window.hpp"
 #include <string>
 #include <iostream>

@@ -1,5 +1,6 @@
 #ifndef WINDOW_H
 #define WINDOW_H
+#pragma once
 #include "solver.hpp"
 #include <fstream>
 #include <QWidget>
@@ -8,6 +9,7 @@
 #include <QComboBox>
 #include <QDebug>
 #include "ocr.hpp"
+#include "solver_thread.hpp"
 
 class QLineEdit;
 class QString;
@@ -20,12 +22,13 @@ public:
     int getX();
     int getY();
     std::string getLibrary();
-    std::string getGrid();
+    std::vector<uint64_t> getGrid();
 private:
     QLineEdit* addTile(int x, int y);
     void makeGrid(int x, int y);
     bool gridFilled();
     void fillList();
+    void solve();
     QVector<QLineEdit*> tiles;
     QLineEdit* xpanel;
     QLineEdit* ypanel;
@@ -36,6 +39,8 @@ private:
     QPushButton* adb_button;
     QSignalMapper* mapper;
     QComboBox* list;
+    SanajahtiSolver solver;
+    SolverThread thread;
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
     void valueChange(int id);

@@ -2,20 +2,25 @@
 
 using std::string;
 
-// main contructor, takes reference to wordlist vector, and the Sanajahti grid, and its dimensions
+// main contructor, takes reference to wordlist vector (vector of QStrings)
+// and the Sanajahti grid, and its dimensions
+// The sanajahti grid must be a vector of uint64_t:s
+// each of which corresponds to one grapheme of utf-8 bytes.
 // constructs a Trie (prefix tree) and initializes variables
-SanajahtiSolver::SanajahtiSolver(const vector<string>& words, const string& grid, int x, int y): tr_(words)
+SanajahtiSolver::SanajahtiSolver(
+        const vector<QString>& words): tr_(words) {}
+
+SanajahtiSolver::SanajahtiSolver(): tr_() {}
+
+// does the solving, using the Trie
+// returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
+vector<pair<string, vector<pair<int, int>>>>
+SanajahtiSolver::solve(const vector<uint64_t>& grid, int x, int y)
 {
     tiles_ = grid;
     xsize_ = x;
     ysize_ = y;
-}
-
-// does the solving, using the Trie
-// returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
-vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve()
-{
-
+    results_.clear();
     // initialize a vector of visited tiles, used when going through the grid
     vector<vector<bool>> visited;
     visited.resize((unsigned long)xsize_);
@@ -29,32 +34,46 @@ vector<pair<string, vector<pair<int, int>>>> SanajahtiSolver::solve()
     // traverse grid starting from each tile
     for (int i = 0; i < xsize_; i++) {
         for (int j = 0; j < ysize_; j++) {
-            auto curChar = getTile(i, j);
+            auto curTile = getTile(i, j);
             // root node
             auto curNode = tr_.getNode(0);
             // get right child of root node (right char)
             auto it = std::find_if(
                     curNode.children.begin(), curNode.children.end(),
-                    [curChar](std::pair<char, int>& x){return x.first == curChar;}
+                    [curTile](std::pair<uint64_t , int>& x){return x.first == curTile;}
             );
             // start recursive find if there are any words that start with this character
+            vector<uint64_t> startString;
             if (it != curNode.children.end()) {
-                solveRecursive("", visited, i, j, startRoute, it->second);
+                solveRecursive(startString, visited, i, j, startRoute, it->second);
             }
         }
     }
+    vector<pair<string, vector<pair<int, int>>>> stringResults;
+    for (auto& result: results_) {
+        string resultString;
+        for (auto char64: result.first) {
+            for (int i = 0; i < 8; i++) {
+                const unsigned char thisChar = (unsigned char)((char64 >> (8*i)) & 0xFF);
+                if (thisChar != 0) {
+                    resultString += thisChar;
+                }
+            }
+        }
+        stringResults.push_back(std::make_pair(resultString, result.second));
+    }
 
-    sort(results_.begin(), results_.end());
-    auto last = unique(results_.begin(), results_.end(),
+    sort(stringResults.begin(), stringResults.end());
+    auto last = unique(stringResults.begin(), stringResults.end(),
                        [](pair<string, vector<pair<int, int>>> a, pair<string, vector<pair<int, int>>> b)
                        {return a.first == b.first; }
     );
-    results_.erase(last, results_.end());
+    stringResults.erase(last, stringResults.end());
 
-    return results_;
+    return stringResults;
 }
 
-void SanajahtiSolver::solveRecursive(string prev,
+void SanajahtiSolver::solveRecursive(vector<uint64_t> prev,
                                 vector<vector<bool>> visited,
                                 int x, int y,
                                 vector<pair<int, int>> curRoute,
@@ -63,7 +82,8 @@ void SanajahtiSolver::solveRecursive(string prev,
     // get current node from trie
     auto curNode = tr_.getNode(nodeIdx);
     // this string represents the path search has taken
-    auto curString = prev + getTile(x, y);
+    auto curString = prev;
+    curString.push_back(getTile(x,y));
     // mark this tile as visited
     visited[x][y] = true;
     // append this node to the route recursion has taken (from root)
@@ -85,7 +105,7 @@ void SanajahtiSolver::solveRecursive(string prev,
                     auto newChar = getTile(x+newx, y+newy);
                     auto it = std::find_if(
                             curNode.children.begin(), curNode.children.end(),
-                            [newChar](std::pair<char, int>& a){return a.first == newChar;}
+                            [newChar](std::pair<uint64_t, int>& a){return a.first == newChar;}
                     );
                     // if possible char found, traverse to that node
                     if (it != curNode.children.end()) {
@@ -106,7 +126,7 @@ bool SanajahtiSolver::possibleNext(int x, int y, const vector<vector<bool>>& vis
 }
 
 // get char of Sanajahti grid tile
-char SanajahtiSolver::getTile(int x, int y)
+uint64_t SanajahtiSolver::getTile(int x, int y)
 {
     return tiles_[y*xsize_ + x];
 }
