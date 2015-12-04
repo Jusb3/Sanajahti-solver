@@ -3,6 +3,7 @@
 #include "window.hpp"
 #include <fstream>
 #include "adb_screenshot.hpp"
+#include "to64bitchars.hpp"
 
 // helper overload for easier debugging
 std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
@@ -310,9 +311,15 @@ bool longLex(const pair<string, vector<pair<int, int>>>& a,
 {
     QString fir= QString::fromStdString(a.first);
     QString sec= QString::fromStdString(b.first);
-    if (fir.length() == sec.length())
-        for (unsigned j=0; j < fir.length(); j++)
+
+    const auto firGraphemeLenght = graphemeLenght(fir);
+    const auto secGraphemeLenght = graphemeLenght(sec);
+
+    //if (fir.length() == sec.length())
+    if (firGraphemeLenght == secGraphemeLenght)
+        for (int j=0; j < fir.length(); j++)
             if (fir.at(j) != sec.at(j))
                 return fir.at(j) < sec.at(j);
-    return fir.length() > sec.length();
+    //return fir.length() > sec.length();
+    return firGraphemeLenght > secGraphemeLenght;
 }
