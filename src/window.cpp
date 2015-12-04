@@ -312,14 +312,14 @@ bool longLex(const pair<string, vector<pair<int, int>>>& a,
     QString fir= QString::fromStdString(a.first);
     QString sec= QString::fromStdString(b.first);
 
-    const auto firGraphemeLenght = graphemeLenght(fir);
-    const auto secGraphemeLenght = graphemeLenght(sec);
+    const auto firGraphemeLength = graphemeLength(fir);
+    const auto secGraphemeLength = graphemeLength(sec);
 
     //if (fir.length() == sec.length())
-    if (firGraphemeLenght == secGraphemeLenght)
+    if (firGraphemeLength == secGraphemeLength)
         for (int j=0; j < fir.length(); j++)
             if (fir.at(j) != sec.at(j))
                 return fir.at(j) < sec.at(j);
     //return fir.length() > sec.length();
-    return firGraphemeLenght > secGraphemeLenght;
+    return firGraphemeLength > secGraphemeLength;
 }

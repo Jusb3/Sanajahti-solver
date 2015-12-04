@@ -11,6 +11,6 @@ using std::vector;
 
 vector<uint64_t> to64bitChars(const std::string& input);
 vector<uint64_t> to64bitChars(const QString& input);
-int graphemeLenght(const QString& input);
+int graphemeLength(const QString& input);
 
 #endif //SANAJAHTI1_TO64BITCHARS_HPP

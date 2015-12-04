@@ -49,8 +49,8 @@ vector<uint64_t> to64bitChars(const QString& input) {
     return word64;
 }
 
-// returns the lenght of string, in graphemes (user perceived characters)
-int graphemeLenght(const QString& input) {
+// returns the length of string, in graphemes (user perceived characters)
+int graphemeLength(const QString& input) {
     auto boundFinder = QTextBoundaryFinder(QTextBoundaryFinder::Grapheme, input);
     boundFinder.toEnd();
     return boundFinder.position();
