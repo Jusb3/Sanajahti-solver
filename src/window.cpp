@@ -1,9 +1,6 @@
 #include <QtWidgets>
 #include <chrono>
 #include "window.hpp"
-<<<<<<< HEAD
-#include "adb_screenshot.hpp"
-=======
 #include <fstream>
 #include "adb_screenshot.hpp"
 
@@ -16,7 +13,6 @@ std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
     os << " ]";
     return os;
 }
->>>>>>> 0b7a9ebbc52695aa6ccd139771a2171270d7e03f
 
 Window::Window()
 {
