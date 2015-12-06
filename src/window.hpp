@@ -41,6 +41,7 @@ private:
     QComboBox* list;
     SanajahtiSolver solver;
     SolverThread thread;
+    QString path;
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
     void valueChange(int id);

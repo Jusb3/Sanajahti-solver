@@ -17,7 +17,6 @@ std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
 
 Window::Window()
 {
-
     this->setWindowTitle("Sanajahti");
     //init some text labels
     QLabel* label1 = new QLabel("X size:", this);
@@ -84,6 +83,8 @@ Window::Window()
     mapper = new QSignalMapper(this);
     connect(mapper, SIGNAL(mapped(int)), this, SLOT(valueChange(int)));
 
+    path=QDir::currentPath();
+
     //call function to create 4x4 grid
     makeGrid(4,4);
 }
@@ -102,10 +103,14 @@ void Window::adb_start()
     xpanel->setText(QString::number(4));
     ypanel->setText(QString::number(4));
     gridChange();
-    auto adbscr = ADBScreenshot();
+    auto adbscr = ADBScreenshot(path.toStdString());
     bool success = adbscr.TakeScreenshot("grid.png");
     if(!success){
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
+        return;
+    }
+    if (library_path->text().isEmpty() || library_path->text().isNull()) {
+        QMessageBox::information(this, tr("Error"), QString("You need to specify the library to use!"));
         return;
     }
     OCR ocr;
@@ -119,8 +124,8 @@ void Window::adb_start()
     for (int a = 0; a < 16; a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1, a/4-1)));
     solve();
-    //thread.init(ocr, result, qApp->applicationDirPath().toStdString());
-    //thread.start();
+    thread.init(ocr, result, path.toStdString());
+    thread.start();
 }
 
 void Window::manual_start()
@@ -172,7 +177,7 @@ bool Window::gridFilled()
 
 void Window::browse()
 {
-    library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), qApp->applicationDirPath(), "All files (*.*)"));
+    library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), path, "All files (*.*)"));
     std::ifstream sanat(getLibrary());
     std::vector<QString> Qwords;
     std::string line;

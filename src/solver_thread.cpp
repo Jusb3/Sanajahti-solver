@@ -6,7 +6,11 @@
 
 SolverThread::SolverThread()
 {
-
+    #ifdef _WIN32
+        extension ="/tools/monkeyrunner.bat ";
+    #else
+        extension ="/tools/monkeyrunner ";
+    #endif
 }
 
 void SolverThread::init(OCR ocr, vector<pair<string,vector<pair<int, int>>>> results, string path)
@@ -30,5 +34,5 @@ void SolverThread::run()
         myfile << "device.touch(0,0, MonkeyDevice.UP)\n";
     }
     myfile.close();
-    system(string(string("C:/adb/win_tools/tools/monkeyrunner.bat ")+path+string("/../commands.py")).c_str());
+    system(string(path+extension+path+string("/commands.py")).c_str());
 }

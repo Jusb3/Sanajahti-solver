@@ -17,6 +17,7 @@ class SolverThread : public QThread
         void run();
         OCR ocr;
         string path;
+        string extension;
         vector<pair<string, vector<pair<int, int>>>> results;
 };
 #endif // AUTOSOLVER_H
