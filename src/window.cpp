@@ -100,6 +100,7 @@ void Window::valueChange(int id)
 
 void Window::adb_start()
 {
+    restart();
     xpanel->setText(QString::number(4));
     ypanel->setText(QString::number(4));
     gridChange();
@@ -177,7 +178,7 @@ bool Window::gridFilled()
 
 void Window::browse()
 {
-    library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), path, "All files (*.*)"));
+    library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), path, "All files (*)"));
     std::ifstream sanat(getLibrary());
     std::vector<QString> Qwords;
     std::string line;
@@ -211,19 +212,54 @@ void Window::gridChange()
 
 void Window::drawWord(const QString &word)
 {
+    int id2=-1;
     std::string std_word=word.toUtf8().constData();
     for (auto obj : result)
         if (obj.first == std_word){
             for (auto tileObj : tiles) {
+                lines.clear();
                 tileObj->setStyleSheet("background-color:grey;"
                                    "color:black");
             }
             for (auto route : obj.second) {
                 int id = route.first+getX() * route.second;
+                if(id2!=-1){
+                    addLine(id,id2);
                 tiles.at(id)->setStyleSheet("background-color:green;"
                                             "color:black;");
+                }
+                else
+                    tiles.at(id)->setStyleSheet("background-color:green;"
+                                                "color:black;"
+                                                "border: 2px solid red");
+                id2=id;
             }
+            this->update();
         }
+}
+
+void Window::addLine(int start, int end)
+{
+    QLine line = QLine(tileMiddle(start), tileMiddle(end));
+    lines.append(line);
+}
+
+void Window::paintEvent(QPaintEvent *event)
+{
+    QPainter p(this);
+    QPen pen;
+    pen.setColor(Qt::red);
+    pen.setWidth(4);
+    p.setPen(pen);
+    p.drawLines(lines);
+}
+
+QPoint Window::tileMiddle(int id)
+{
+    QPoint point=tiles.at(id)->pos();
+    point.setX(point.x()+tiles.at(id)->width()/2);
+    point.setY(point.y()+tiles.at(id)->height()/2);
+    return point;
 }
 
 void Window::makeGrid(int x, int y)
@@ -276,6 +312,7 @@ void Window::restart()
         obj->setStyleSheet("background-color:white");
         obj->setDisabled(false);
     }
+    lines.clear();
 }
 
 int Window::getX()

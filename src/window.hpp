@@ -25,11 +25,15 @@ public:
     std::vector<uint64_t> getGrid();
 private:
     QLineEdit* addTile(int x, int y);
+    QPoint tileMiddle(int id);
     void makeGrid(int x, int y);
     bool gridFilled();
     void fillList();
     void solve();
+    void addLine(int start, int end);
+    void paintEvent(QPaintEvent *event);
     QVector<QLineEdit*> tiles;
+    QVector<QLine> lines;
     QLineEdit* xpanel;
     QLineEdit* ypanel;
     QLineEdit* library_path;
@@ -42,6 +46,7 @@ private:
     SanajahtiSolver solver;
     SolverThread thread;
     QString path;
+
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
     void valueChange(int id);
