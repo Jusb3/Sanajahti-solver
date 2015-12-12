@@ -9,6 +9,7 @@
 #include "../src/to64bitchars.cpp"
 #include "../src/solver.cpp"
 #include "../src/trie.cpp"
+#include "../src/console.cpp"
 
 
 int main(int argc, char* argv[])
@@ -51,6 +52,54 @@ TEST(Solver, 2) {
 
 	EXPECT_EQ(grid, correct) << "The function to64bitChars didn't produce the correct string";
 }
+
+// Test that x_size can be returned successfully
+TEST(GetX, 3) {
+	Console console;
+	int x_size = console.getX();
+	EXPECT_EQ(x_size, 0) << "Incorrect x_size";
+}
+
+
+// Test that y_size can be returned successfully
+TEST(GetY, 4) {
+	Console console;
+	int y_size = console.getY();
+	EXPECT_EQ(y_size, 0) << "Incorrect y_size";
+}
+
+
+// Test that the library can be returned succesfully
+TEST(GetLibrary, 5) {
+	Console console;
+	std::string library = console.getLibrary();
+	EXPECT_EQ(library, "") << "Error in returning the library";
+}
+
+
+// Test that the grid can be returned succesfully
+TEST(GetGrid, 6) {
+	Console console;
+	std::vector<uint64_t> test = console.getGrid();
+	std::vector<uint64_t> correct = {};
+	EXPECT_EQ(test, correct) << "Error in getting the grid";
+
+}
+
+
+// Test that the grid is valid
+TEST(IsValidGrid, 7) {
+	std::vector<std::string> test1 = {}; 				// Test an empty grid
+	std::vector<std::string> test2 = {"a", "", "c"};	// Test a non rectancular grid
+
+	ASSERT_FALSE(isValidGrid(test1));
+	ASSERT_FALSE(isValidGrid(test2));
+}
+
+
+
+
+
 
 
 
