@@ -4,7 +4,7 @@
 
 // usage:
 // auto adbscr = new ADBScreenShot();
-// bool success = adbscr.TakeScreenshot('grid.png');
+// bool success = adbscr.takeScreenshot('grid.png');
 // if(success) {
 //   // read file saved at './grid.png'
 // } else {
@@ -24,7 +24,7 @@ ADBScreenshot::ADBScreenshot(const std::string &path) : path(path)
     #endif
 }
 
-bool ADBScreenshot::TakeScreenshot(const std::string &name)
+bool ADBScreenshot::takeScreenshot(const std::string &name)
 {
     int is_adb = system(std::string(path+extension+std::string(" version")).c_str());
     if(is_adb != 0){

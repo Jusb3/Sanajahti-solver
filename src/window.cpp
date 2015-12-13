@@ -108,7 +108,7 @@ void Window::adb_start()
     ypanel->setText(QString::number(4));
     gridChange();
     auto adbscr = ADBScreenshot(path.toStdString());
-    bool success = adbscr.TakeScreenshot("grid.png");
+    bool success = adbscr.takeScreenshot("grid.png");
 
     if(!success){
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
