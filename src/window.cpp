@@ -115,7 +115,7 @@ void Window::adb_start()
         return;
     }
     OCR ocr;
-    ocr.init("grid.png");
+    ocr.init("auto-generated_files/grid.png");
     if(ocr.findDots())
         ocr.getGridSize();
     else{
@@ -346,22 +346,4 @@ QLineEdit* Window::addTile(int x, int y)
     tile->setFont(font);
     tile->setAlignment(Qt::AlignCenter);
     return tile;
-}
-
-bool longLex(const pair<string, vector<pair<int, int>>>& a,
-             const pair<string, vector<pair<int, int>>>& b)
-{
-    QString fir= QString::fromStdString(a.first);
-    QString sec= QString::fromStdString(b.first);
-
-    const auto firGraphemeLength = graphemeLength(fir);
-    const auto secGraphemeLength = graphemeLength(sec);
-
-    //if (fir.length() == sec.length())
-    if (firGraphemeLength == secGraphemeLength)
-        for (int j=0; j < fir.length(); j++)
-            if (fir.at(j) != sec.at(j))
-                return fir.at(j) < sec.at(j);
-    //return fir.length() > sec.length();
-    return firGraphemeLength > secGraphemeLength;
 }

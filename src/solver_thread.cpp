@@ -22,7 +22,7 @@ void SolverThread::init(OCR ocr, vector<pair<string,vector<pair<int, int>>>> res
 void SolverThread::run()
 {
     std::ofstream myfile;
-    myfile.open("commands.py");
+    myfile.open("auto-generated_files/commands.py");
     myfile << "from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice\n";
     myfile << "device = MonkeyRunner.waitForConnection()\n";
     for(auto obj : results){
@@ -34,5 +34,5 @@ void SolverThread::run()
         myfile << "device.touch(0,0, MonkeyDevice.UP)\n";
     }
     myfile.close();
-    system(string(path+extension+path+string("/commands.py")).c_str());
+    system(string(path+extension+path+string("/auto-generated_files/commands.py")).c_str());
 }
