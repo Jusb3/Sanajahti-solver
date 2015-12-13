@@ -11,8 +11,7 @@
 //   // couldn't get screenshot, handle this case.
 // }
 
-// Function to take a screenshot. Saves <name>.png to current folder if
-// succeeds. Otherwise returns false and prints error to stderr.
+// Constructor where we define the path to adb tools and the global path
 ADBScreenshot::ADBScreenshot(const std::string &path) : path(path)
 {
     #ifdef _WIN32
@@ -24,6 +23,8 @@ ADBScreenshot::ADBScreenshot(const std::string &path) : path(path)
     #endif
 }
 
+// Function to take a screenshot. Saves <name>.png to current folder if
+// succeeds. Otherwise returns false and prints error to stderr.
 bool ADBScreenshot::takeScreenshot(const std::string &name)
 {
     int is_adb = system(std::string(path+extension+std::string(" version")).c_str());
