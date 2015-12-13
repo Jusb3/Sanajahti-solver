@@ -30,7 +30,10 @@ add_library(deps
         src/ocr.cpp
         src/console.cpp
         src/console.hpp
-        src/to64bitchars.cpp src/to64bitchars.hpp)
+        src/to64bitchars.cpp
+        src/to64bitchars.hpp
+        src/solver_thread.cpp
+        src/solver_thread.hpp)
 
 # Use the Widgets module from Qt 5.
 target_link_libraries(deps Qt5::Widgets)
