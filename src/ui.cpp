@@ -4,7 +4,7 @@
 #include <QApplication>
 #include <fstream>
 
-UI::UI(std::string option)
+UI::UI(const std::string &option)
 {
     //check if program was run with argument "console"
     if (option == "console"){

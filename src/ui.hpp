@@ -10,7 +10,7 @@
 class UI
 {
 public:
-    UI(std::string option);
+    UI(const std::string &option);
 };
 
 #endif // UI_H
