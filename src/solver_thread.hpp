@@ -8,27 +8,25 @@
 #include "ocr.hpp"
 #include "solver.hpp"
 
-using std::ofstream;
-using std::string;
-using std::to_string;
-using std::cerr;
+using namespace std;
 
 class SolverThread : public QThread
 {
     Q_OBJECT
-
-    public:
-        SolverThread();
-        void init(OCR ocr, vector<pair<string, vector<pair<int, int>>>> results, string path);
-        void run();
-
-    private:
-        OCR ocr;
-        string path;
-        string extension;
-        vector<pair<string, vector<pair<int, int>>>> results;
-
-    signals:
-        void showMB();
+public:
+    SolverThread();
+    //initializing function
+    void init(OCR ocr, vector<pair<string, vector<pair<int, int>>>> results, string path);
+    //overrides function from QThread
+    //executes the thread
+    void run();
+private:
+    OCR ocr;
+    string path;
+    string extension;
+    vector<pair<string, vector<pair<int, int>>>> results;
+signals:
+    //signal for main window to show error window
+    void showMB();
 };
 #endif // AUTOSOLVER_H
