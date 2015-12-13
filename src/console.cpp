@@ -52,12 +52,12 @@ void Console::run()
         }
     }
 }
-
+/*
 std::string Console::getLibrary()
 {
     return library;
 }
-
+*/
 std::vector<uint64_t> Console::getGrid()
 {
     return grid;

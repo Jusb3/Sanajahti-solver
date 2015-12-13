@@ -7,13 +7,17 @@
 
 class Console {
 public:
+    // initializes some variables, allows run() to be called
     Console();
+    // asks the user for wordlist file and grid, and saves them
     void run();
-    std::string getLibrary();
+    // returns the grid user inputed, as custome encoded string
     std::vector<uint64_t> getGrid();
+    // returns the wordlist words as a vector of QStrings
     const std::vector<QString> getWords() const;
-    int getX();
-    int getY();
+
+    int getX(); // grid x-size
+    int getY(); // grid y-size
 private:
     std::string library; 
     std::vector<uint64_t> grid;
@@ -22,4 +26,5 @@ private:
     std::vector<QString> words;
 };
 
+// checks that the grid is valid (grid is not empty, and is rectangular)
 bool isValidGrid(std::vector<std::string> rows);
