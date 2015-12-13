@@ -14,17 +14,6 @@ UI::UI(std::string option)
         std::vector<QString> Qwords;
         std::string line;
 
-        // read words to vector and filter non-ascii
-        /*while (std::getline(sanat, line)) {
-            // filter out non-ascii words (first bit 1 in char)
-            bool valid = true;
-            for (auto c: line) {
-                if (c >> 7 != 0)
-                    valid = false;
-            }
-            if (valid)
-                words.push_back(line);
-        }*/
         while (std::getline(sanat, line)) {
             Qwords.push_back(QString(line.data()));
         }

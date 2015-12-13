@@ -1,7 +1,15 @@
 #include "trie.hpp"
 #include "to64bitchars.hpp"
 
-Trie::Trie() {}
+
+// empty constructor, only root is added to the trie, caller is responsible for adding words
+Trie::Trie() {
+    // construct root and put it into Trie
+    auto root = TrieNode(-1, 0);
+    store_.push_back(root);
+}
+
+// construct the trie with a word list
 Trie::Trie(const std::vector<QString>& words)
 {
     // construct root and put it into Trie
@@ -9,6 +17,7 @@ Trie::Trie(const std::vector<QString>& words)
     store_.push_back(root);
 
     // for each word in wordlist, normalize unicode and encode string to custom 64-bit fixed-width format
+    // and then add that to the trie
     for (auto& word: words) {
         const auto encodedWord = to64bitChars(word);
         add(encodedWord);
