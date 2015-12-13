@@ -1,21 +1,47 @@
-### This is an example readme for the project.
+# SanajahtiSolver
+
+## What is this?
+SanajahtiSolver is a program to solve the game Sanajahti. The game needs no
+further explanations. This program can either be used to manually input the game,
+and then solve it, or you can even solve Sanajahti games automatically with
+and Andoroid phone.
+
+## Project Structure
 
 This repository contains three subdirectories:
 
 * plan/ for the plan 
 * doc/  for the final documentation
 * src/  for all the source code
+* test/ for unit tests
+* platform-tools/ for bundled Android SDK binaries
+* tools/ for bundled Android SDK binaries
 
-You can write a short summary of your project into this file.
-This file is read by the gitlab and is shown on the repository's front page.
+In addition there are a few files here:
 
-## How to build project
+* .gitignore
+* CMakeLists.txt for build system
+* README.md you're reading it..
+* kotus.txt a bundled wordlist
+* sanajahti.pro for qmake-based build system
 
-This project uses a CMake based build system. User needs to have Qt5 installed.
+## Instructions
+### How to build the software
+The software is built using CMake, which generates the required makefiles to build the software. As the program is written using Qt UI framework, Qt (version 5) must be installed to build the software. Build instructions:
 
-Build steps:
-1. set environment variable QTDIR to Qt directory, for example:
-   export QTDIR="/Users/jma/Qt/5.5/clang_64/"
-2. in sanajahti folder (where CMakeLists.txt is located) use cmake with command:
-   "cmake ./"
-3. use command "make" to build project
+1. Set environment variable QTDIR to your Qt installation directory (with right compiler), for example /Users/jma/Qt/5.5/clang_64/. Example command: export QTDIR="/Users/jma/Qt/5.5/clang_64/"
+2. Use CMake in the main directory, where CMakeLists.txt is located, with command “cmake ./”
+3. Build the program using command “make” in the same directory
+4. The program is now built and ready to be used. Note that folders “tools” and “platform-tools” should be in the same folder as the executable, as these include binaries for android-interoperability
+
+### How to use the software
+- After starting the program you need to specify the library file containing all
+the words needed by the solver. This is done by pressing button “Library”, and 
+the selecting the correct file.
+- Next you can let the program automatically solve game by using button 
+“Auto Solve”. This feature takes screenshot of the phone screen, so make sure 
+the game is running and the grid is visible. Alternatively you can manually fill
+the grid and press button “Start” to show all the words found by the program on 
+the screen.
+- If you want to solve another grid you can use the Auto Solve feature straight 
+away, but for manual inputting, you need to press the button “Restart” first.
