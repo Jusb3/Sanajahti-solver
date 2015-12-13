@@ -5,18 +5,15 @@
 
 // usage:
 // auto adbscr = new ADBScreenShot();
-// bool success = adbscr.TakeScreenshot();
+// bool success = adbscr.TakeScreenshot('grid.png');
 // if(success) {
-//   // read file saved at './sanajahtiscr.png'
+//   // read file saved at './grid.png'
 // } else {
 //   // couldn't get screenshot, handle this case.
 // }
 
-ADBScreenshot::ADBScreenshot()
-{
-
-}
-
+// Function to take a screenshot. Saves <name>.png to current folder if
+// succeeds. Otherwise returns false and prints error to stderr.
 bool ADBScreenshot::TakeScreenshot(const std::string &name)
 {
     int is_adb = system("adb version");
@@ -44,6 +41,6 @@ bool ADBScreenshot::TakeScreenshot(const std::string &name)
         std::cerr<<"Failed to remove the screenshot from the mobile device!"<<std::endl;
         return false;
     }
-
+    
     return true;
 }

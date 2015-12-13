@@ -4,7 +4,7 @@
 class ADBScreenshot
 {
 public:
-        ADBScreenshot();
+        ADBScreenshot() {};
         bool TakeScreenshot(const std::string &name);
 private:
 };
