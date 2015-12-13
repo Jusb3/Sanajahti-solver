@@ -2,6 +2,7 @@
 #define WINDOW_H
 #pragma once
 #include "solver.hpp"
+#include "ui.hpp"
 #include <fstream>
 #include <QWidget>
 #include <QSignalMapper>
@@ -23,13 +24,19 @@ public:
     int getY();
     std::string getLibrary();
     std::vector<uint64_t> getGrid();
+public slots:
+    void showMonkeyRunnerError();
 private:
     QLineEdit* addTile(int x, int y);
+    QPoint tileMiddle(int id);
     void makeGrid(int x, int y);
     bool gridFilled();
     void fillList();
     void solve();
+    void addLine(int start, int end);
+    void paintEvent(QPaintEvent *event);
     QVector<QLineEdit*> tiles;
+    QVector<QLine> lines;
     QLineEdit* xpanel;
     QLineEdit* ypanel;
     QLineEdit* library_path;
@@ -41,9 +48,10 @@ private:
     QComboBox* list;
     SanajahtiSolver solver;
     SolverThread thread;
+    QString path;
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
-    void valueChange(int id);
+    void valueChanged(int id);
     void gridChange();
     void browse();
     void manual_start();
@@ -51,6 +59,4 @@ private slots:
     void drawWord(const QString& word);
     void restart();
 };
-bool longLex(const pair<string, vector<pair<int, int>>>& a,
-             const pair<string, vector<pair<int, int>>>& b);
 #endif

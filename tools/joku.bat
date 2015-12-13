@@ -1,0 +1,1 @@
+monkeyrunner.bat C:\Users\Juuso\Documents\build-sanajahti-Desktop_Qt_5_5_1_MinGW_32bit-Debug\commands.py
