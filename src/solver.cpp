@@ -51,6 +51,8 @@ SanajahtiSolver::solve(const vector<uint64_t>& grid, int x, int y)
             }
         }
     }
+
+    // convert back from custom 64-bit format to std::string
     vector<pair<string, vector<pair<int, int>>>> stringResults;
     for (auto& result: results_) {
         string resultString;
@@ -65,10 +67,11 @@ SanajahtiSolver::solve(const vector<uint64_t>& grid, int x, int y)
         stringResults.push_back(std::make_pair(resultString, result.second));
     }
 
+    // filter out non-unique results
     sort(stringResults.begin(), stringResults.end());
     auto last = unique(stringResults.begin(), stringResults.end(),
                        [](pair<string, vector<pair<int, int>>> a, pair<string, vector<pair<int, int>>> b)
-                       {return a.first == b.first; }
+                       { return a.first == b.first; }
     );
     stringResults.erase(last, stringResults.end());
 
