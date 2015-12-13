@@ -21,24 +21,24 @@ Window::Window()
     this->setWindowTitle("Sanajahti");
     //init some text labels
     QLabel* label1 = new QLabel("Width:", this);
-    label1->move(5,5);
+    label1->move(5, 10);
 
     QLabel* label2 = new QLabel("Height:", this);
-    label2->move(85,5);
+    label2->move(85, 10);
 
     QLabel* label4 = new QLabel("Words:", this);
-    label4->move(5,65);
+    label4->move(5,68);
 
     //init textpanel for x length
     xpanel = new QLineEdit("4", this);
-    xpanel->move(40, 7);
+    xpanel->move(45, 7);
     xpanel->setFixedWidth(20);
     xpanel->setValidator(new QIntValidator(1, 99, this));
     connect(xpanel, SIGNAL(textChanged(const QString &)), this, SLOT(gridChange()));
 
     //init textpanel for y length
     ypanel= new QLineEdit("4", this);
-    ypanel->move(120, 7);
+    ypanel->move(130, 7);
     ypanel->setFixedWidth(20);
     ypanel->setValidator(new QIntValidator(1, 99, this));
     connect(ypanel, SIGNAL(textChanged(const QString &)), this, SLOT(gridChange()));
@@ -52,19 +52,19 @@ Window::Window()
 
     //init button to select library
     browse_button = new QPushButton("Library", this);
-    browse_button->move(100, 31);
-    browse_button->setFixedWidth(55);
+    browse_button->move(95, 29);
+    browse_button->setFixedWidth(65);
     connect(browse_button, SIGNAL(clicked()), this, SLOT(browse()));
 
     //init startbutton
     start_button = new QPushButton("Start", this);
-    start_button->move(5, 91);
-    start_button->setFixedWidth(45);
+    start_button->move(0, 91);
+    start_button->setFixedWidth(67);
     connect(start_button,SIGNAL(clicked()), this, SLOT(manual_start()));
 
     restart_button = new QPushButton("Restart", this);
-    restart_button->move(5, 91);
-    restart_button->setFixedWidth(45);
+    restart_button->move(0, 91);
+    restart_button->setFixedWidth(67);
     restart_button->setHidden(true);
     connect(restart_button, SIGNAL(clicked()), this, SLOT(restart()));
 
@@ -108,7 +108,7 @@ void Window::adb_start()
     ypanel->setText(QString::number(4));
     gridChange();
     auto adbscr = ADBScreenshot(path.toStdString());
-    bool success = adbscr.TakeScreenshot("grid.png");
+    bool success = adbscr.takeScreenshot("grid.png");
 
     if(!success){
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
@@ -341,6 +341,7 @@ void Window::restart()
         obj->setDisabled(false);
     }
     lines.clear();
+    update();
 }
 
 //return size of the x-axis of the grid.
