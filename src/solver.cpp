@@ -10,6 +10,8 @@ using std::string;
 SanajahtiSolver::SanajahtiSolver(
         const vector<QString>& words): tr_(words) {}
 
+// empty constructor, cannot solve by itself
+// Solver needs to be constructed with trie to be able to solve things
 SanajahtiSolver::SanajahtiSolver(): tr_() {}
 
 // does the solving, using the Trie
