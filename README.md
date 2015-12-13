@@ -15,7 +15,7 @@ This project uses a CMake based build system. User needs to have Qt5 installed.
 
 Build steps:
 1. set environment variable QTDIR to Qt directory, for example:
-1. export QTDIR="/Users/jma/Qt/5.5/clang_64/"
+   export QTDIR="/Users/jma/Qt/5.5/clang_64/"
 2. in sanajahti folder (where CMakeLists.txt is located) use cmake with command:
-2. "cmake ./"
+   "cmake ./"
 3. use command "make" to build project
