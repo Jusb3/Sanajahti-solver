@@ -3,6 +3,8 @@ build/
 bin/
 .idea/
 .qmake.stash
+*.o
+*.a
 CMakeFiles/
 cmake_install.cmake
 moc_window.cpp
