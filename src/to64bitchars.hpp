@@ -18,6 +18,9 @@ vector<uint64_t> to64bitChars(const std::string& input);
 // this achieves very good Unicode support with a fixed lenght-encoding
 // supports upto 8-bytes per grapheme, after that bytes simply ignored
 vector<uint64_t> to64bitChars(const QString& input);
+
+// returns the lenght of string in graphemes
 int graphemeLength(const QString& input);
+int graphemeLength(const std::string& input);
 
 #endif //SANAJAHTI1_TO64BITCHARS_HPP

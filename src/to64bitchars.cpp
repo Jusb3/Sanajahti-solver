@@ -67,3 +67,7 @@ int graphemeLength(const QString& input) {
     boundFinder.toEnd();
     return boundFinder.position();
 }
+
+int graphemeLength(const std::string& input) {
+    return graphemeLength(QString(input.data()));
+}

@@ -62,10 +62,11 @@ bool isValidGrid(std::vector<std::string> rows)
         std::cout << "The grid cannot be empty.\nPlease type the asked parameters again.\n";
         return false;
     }
-    for (unsigned int count=1; count<rows.size(); count++)
-        if (rows[count].length() != rows[0].length()){
+    for (unsigned int count = 1; count < rows.size(); count++) {
+        if (graphemeLength(rows[count]) != graphemeLength(rows[0])) {
             std::cout << "The grid is not rectangular.\nPlease type the asked parameters again.\n";
             return false;
         }
+    }
     return true;
 }
