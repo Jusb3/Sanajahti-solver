@@ -4,15 +4,10 @@ set(CMAKE_PREFIX_PATH $ENV{QTDIR})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3 -Wall -pedantic -std=c++11")
 
-# Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
-# Instruct CMake to run moc automatically when needed.
 set(CMAKE_AUTOMOC ON)
 
-# Find the QtWidgets library
 find_package(Qt5Widgets)
-
-# Tell CMake to create the helloworld executable
 add_executable(sanajahti1 src/main.cpp)
 
 add_library(deps
@@ -35,6 +30,5 @@ add_library(deps
         src/solver_thread.cpp
         src/solver_thread.hpp)
 
-# Use the Widgets module from Qt 5.
 target_link_libraries(deps Qt5::Widgets)
 target_link_libraries(sanajahti1 deps)
