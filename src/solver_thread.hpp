@@ -8,8 +8,6 @@
 #include "ocr.hpp"
 #include "solver.hpp"
 
-using namespace std;
-
 class SolverThread : public QThread
 {
     Q_OBJECT
@@ -24,7 +22,7 @@ private:
     OCR ocr;
     string path;
     string extension;
-    vector<pair<string, vector<pair<int, int>>>> results;
+    std::vector<pair<std::string, std::vector<std::pair<int, int>>>> results;
 signals:
     //signal for main window to show error window
     void showMB();

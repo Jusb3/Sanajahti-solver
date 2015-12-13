@@ -108,7 +108,7 @@ void Window::adb_start()
     ypanel->setText(QString::number(4));
     gridChange();
     auto adbscr = ADBScreenshot(path.toStdString());
-    bool success = adbscr.takeScreenshot("grid.png");
+    bool success = adbscr.TakeScreenshot("grid.png");
 
     if(!success){
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
@@ -253,7 +253,7 @@ void Window::drawWord(const QString &word)
                 else
                     tiles.at(id)->setStyleSheet("background-color:green;"
                                                 "color:black;"
-                                                "border: 2px solid red;");
+                                                "border: 2px solid blue;");
                 id2=id;
             }
             this->update();
@@ -272,7 +272,7 @@ void Window::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     QPen pen;
-    pen.setColor(Qt::red);
+    pen.setColor(Qt::blue);
     pen.setWidth(4);
     p.setPen(pen);
     p.drawLines(lines);

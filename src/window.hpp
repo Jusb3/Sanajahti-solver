@@ -14,7 +14,7 @@
 
 class QLineEdit;
 class QString;
-//Main 
+//Main
 class Window : public QWidget
 {
     Q_OBJECT
