@@ -14,18 +14,19 @@ void Console::run()
     std::vector<std::string> rows;
     std::string row;
     bool cont = true;
-    std::ifstream thisfile;
     while (cont) {
         std::cout << "Enter wordlist:";
         std::getline(std::cin, library);
-        thisfile = std::ifstream(library);
-        if (thisfile.is_open()) {
+        std::ifstream thisfileTest(library);
+        if (thisfileTest.is_open()) {
             cont = false;
         }
         else {
             std::cout << "File not found" << std::endl;
         }
     }
+
+    std::ifstream thisfile(library);
 
     std::string line;
     while (std::getline(thisfile, line)) {
@@ -52,12 +53,7 @@ void Console::run()
         }
     }
 }
-/*
-std::string Console::getLibrary()
-{
-    return library;
-}
-*/
+
 std::vector<uint64_t> Console::getGrid()
 {
     return grid;
