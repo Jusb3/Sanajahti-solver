@@ -10,14 +10,7 @@ UI::UI(std::string option)
     if (option == "console"){
         auto cons = Console();
         cons.run();
-        std::ifstream sanat(cons.getLibrary());
-        //std::vector<string> words;
-        std::vector<QString> Qwords;
-        std::string line;
-        while (std::getline(sanat, line)) {
-            Qwords.push_back(QString(line.data()));
-        }
-
+        const auto Qwords = cons.getWords();
         // construct solver with words and solve sanajahti
         auto solver = SanajahtiSolver(Qwords);
         auto results = solver.solve(cons.getGrid(), cons.getX(), cons.getY());

@@ -1,5 +1,6 @@
 #include "console.hpp"
 #include "to64bitchars.hpp"
+#include <fstream>
 
 Console::Console()
 {
@@ -12,18 +13,34 @@ void Console::run()
 {
     std::vector<std::string> rows;
     std::string row;
-    std::cout << "Enter wordlist:";
-    std::getline(std::cin, library);
+    bool cont = true;
+    std::ifstream thisfile;
+    while (cont) {
+        std::cout << "Enter wordlist:";
+        std::getline(std::cin, library);
+        thisfile = std::ifstream(library);
+        if (thisfile.is_open()) {
+            cont = false;
+        }
+        else {
+            std::cout << "File not found" << std::endl;
+        }
+    }
+
+    std::string line;
+    while (std::getline(thisfile, line)) {
+        words.push_back(QString(line.data()));
+    }
 
     do {
         rows.clear();
         std::cout << "Enter the Sanajahti grid, row by row, separated by enter, empty row ends the entry:\n";
-        while(getline(std::cin, row))
+        while (getline(std::cin, row))
             if (row.empty())
                 break;
             else
                 rows.push_back(row);
-    } while(!isValidGrid(rows));
+    } while (!isValidGrid(rows));
 
     x_size = (int)rows[0].length();
     y_size = (int)rows.size();
@@ -44,6 +61,11 @@ std::string Console::getLibrary()
 std::vector<uint64_t> Console::getGrid()
 {
     return grid;
+}
+
+const std::vector<QString> Console::getWords() const
+{
+    return words;
 }
 
 int Console::getX()

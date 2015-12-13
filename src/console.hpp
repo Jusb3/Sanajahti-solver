@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <QString>
 
 class Console {
 public:
@@ -10,6 +11,7 @@ public:
     void run();
     std::string getLibrary();
     std::vector<uint64_t> getGrid();
+    const std::vector<QString> getWords() const;
     int getX();
     int getY();
 private:
@@ -17,6 +19,7 @@ private:
     std::vector<uint64_t> grid;
     int x_size;
     int y_size;
+    std::vector<QString> words;
 };
 
 bool isValidGrid(std::vector<std::string> rows);
