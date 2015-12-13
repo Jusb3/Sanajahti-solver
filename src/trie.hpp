@@ -23,6 +23,8 @@ struct TrieNode {
 };
 
 // The trie class itself, stores TrieNodes
+// The trie class is a suffix tree data structure that
+// stores the wordlist in a  way that makes the solving algorithm fast
 class Trie {
 public:
     // empty constructor, only root is constructed, caller needs to add words

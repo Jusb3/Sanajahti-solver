@@ -8,6 +8,8 @@
 #include <QString>
 
 using std::vector;
+using std::pair;
+using std::string;
 
 // converts std::string to custom 64-bit format, internally converts first to QString
 vector<uint64_t> to64bitChars(const std::string& input);
@@ -22,5 +24,11 @@ vector<uint64_t> to64bitChars(const QString& input);
 // returns the lenght of string in graphemes
 int graphemeLength(const QString& input);
 int graphemeLength(const std::string& input);
+
+
+//sorting function that
+//sorts elements primarily by lenght and secondary by alphabetic order
+bool longLex(const pair<string, vector<pair<int, int>>>& a,
+             const pair<string, vector<pair<int, int>>>& b);
 
 #endif //SANAJAHTI1_TO64BITCHARS_HPP

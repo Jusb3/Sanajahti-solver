@@ -20,7 +20,7 @@ public:
     // constructs a Trie (prefix tree) and initializes variables
     SanajahtiSolver(const vector<QString>& words);
 
-    // default constructor, construct solver with no words so actually doesn't solve anything
+    // default constructor, constructs solver with no words so actually doesn't solve anything
     SanajahtiSolver();
 
     // does the solving, using the Trie, inputs are the grid characters (row major) and x/y size of the grid
