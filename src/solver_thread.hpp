@@ -8,7 +8,10 @@
 #include "ocr.hpp"
 #include "solver.hpp"
 
-using namespace std;
+using std::ofstream;
+using std::string;
+using std::to_string;
+using std::cerr;
 
 class SolverThread : public QThread
 {
