@@ -20,10 +20,10 @@ Window::Window()
 {
     this->setWindowTitle("Sanajahti");
     //init some text labels
-    QLabel* label1 = new QLabel("X size:", this);
+    QLabel* label1 = new QLabel("Width:", this);
     label1->move(5,5);
 
-    QLabel* label2 = new QLabel("Y size:", this);
+    QLabel* label2 = new QLabel("Height:", this);
     label2->move(85,5);
 
     QLabel* label4 = new QLabel("Words:", this);
@@ -31,15 +31,15 @@ Window::Window()
 
     //init textpanel for x length
     xpanel = new QLineEdit("4", this);
-    xpanel->move(40,3);
-    xpanel->setFixedWidth(30);
+    xpanel->move(40, 7);
+    xpanel->setFixedWidth(20);
     xpanel->setValidator(new QIntValidator(1, 99, this));
     connect(xpanel, SIGNAL(textChanged(const QString &)), this, SLOT(gridChange()));
 
     //init textpanel for y length
     ypanel= new QLineEdit("4", this);
-    ypanel->move(120, 3);
-    ypanel->setFixedWidth(30);
+    ypanel->move(120, 7);
+    ypanel->setFixedWidth(20);
     ypanel->setValidator(new QIntValidator(1, 99, this));
     connect(ypanel, SIGNAL(textChanged(const QString &)), this, SLOT(gridChange()));
 

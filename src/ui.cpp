@@ -42,7 +42,7 @@ UI::UI(std::string option)
         QFont font;
         font.setFamily("Arial");
         font.setBold(true);
-        font.setPointSize(8);
+        font.setPointSize(11);
         QApplication::setFont(font);
         Window window;
         window.show();
