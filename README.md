@@ -28,4 +28,4 @@ the game is running and the grid is visible. Alternatively you can manually fill
 the grid and press button “Start” to show all the words found by the program on 
 the screen.
 - If you want to solve another grid you can use the Auto Solve feature straight 
-- away, but for manual inputting, you need to press the button “Restart” first.
+away, but for manual inputting, you need to press the button “Restart” first.
