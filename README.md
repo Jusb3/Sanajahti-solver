@@ -1,15 +1,31 @@
-### This is an example readme for the project.
+# SanajahtiSolver
+
+## What is this?
+SanajahtiSolver is a program to solve the game Sanajahti. The game needs no
+further explanations. This program can either be used to manually input the game,
+and then solve it, or you can even solve Sanajahti games automatically with
+and Andoroid phone.
+
+## Project Structure
 
 This repository contains three subdirectories:
 
 * plan/ for the plan 
 * doc/  for the final documentation
 * src/  for all the source code
+* test/ for unit tests
+* platform-tools/ for bundled Android SDK binaries
+* tools/ for bundled Android SDK binaries
 
-You can write a short summary of your project into this file.
-This file is read by the gitlab and is shown on the repository's front page.
+In addition there are a few files here:
 
+* .gitignore
+* CMakeLists.txt for build system
+* README.md you're reading it..
+* kotus.txt a bundled wordlist
+* sanajahti.pro for qmake-based build system
 
+## Instructions
 ### How to build the software
 The software is built using CMake, which generates the required makefiles to build the software. As the program is written using Qt UI framework, Qt (version 5) must be installed to build the software. Build instructions:
 
