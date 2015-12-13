@@ -24,6 +24,8 @@ public:
     int getY();
     std::string getLibrary();
     std::vector<uint64_t> getGrid();
+public slots:
+    void showMonkeyRunnerError();
 private:
     QLineEdit* addTile(int x, int y);
     QPoint tileMiddle(int id);
@@ -47,10 +49,9 @@ private:
     SanajahtiSolver solver;
     SolverThread thread;
     QString path;
-
     vector<pair<string, vector<pair<int, int>>>> result;
 private slots:
-    void valueChange(int id);
+    void valueChanged(int id);
     void gridChange();
     void browse();
     void manual_start();

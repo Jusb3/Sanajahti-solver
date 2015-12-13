@@ -1,11 +1,8 @@
 #include "solver_thread.hpp"
-#include "adb_screenshot.hpp"
-#include "window.hpp"
-
-
 
 SolverThread::SolverThread()
 {
+    //defining correct path for used operating system
     #ifdef _WIN32
         extension ="/tools/monkeyrunner.bat ";
     #else
@@ -19,20 +16,28 @@ void SolverThread::init(OCR ocr, vector<pair<string,vector<pair<int, int>>>> res
     this->results = results;
     this->path = path;
 }
+
 void SolverThread::run()
 {
-    std::ofstream myfile;
+    //generating the monkeyrunner script-file for sending automated playing.
+    ofstream myfile;
     myfile.open("auto-generated_files/commands.py");
     myfile << "from com.android.monkeyrunner import MonkeyRunner, MonkeyDevice\n";
     myfile << "device = MonkeyRunner.waitForConnection()\n";
     for(auto obj : results){
         for (auto route : obj.second) {
-            std::pair<int,int> coord = ocr.getTileCoordinate(route.first-1,route.second-1);
+            pair<int,int> coord = ocr.getTileCoordinate(route.first-1,route.second-1);
             myfile << "device.touch("+to_string(coord.first)+string(", ")+to_string(coord.second)+string(", MonkeyDevice.DOWN)\n");
         }
         myfile << "MonkeyRunner.sleep(0.2)\n";
         myfile << "device.touch(0,0, MonkeyDevice.UP)\n";
     }
     myfile.close();
-    system(string(path+extension+path+string("/auto-generated_files/commands.py")).c_str());
+    //send script-file to monkeyrunner
+    int mrsucc = system(string(path+extension+path+string("/auto-generated_files/commands.py")).c_str());
+    if(mrsucc != 0){
+        cerr << "Error running the MonkeyRunner script." << std::endl;
+        emit showMB();
+    }
+
 }

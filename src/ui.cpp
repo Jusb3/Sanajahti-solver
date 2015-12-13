@@ -6,6 +6,7 @@
 
 UI::UI(std::string option)
 {
+    //check if program was run with argument "console"
     if (option == "console"){
         auto cons = Console();
         cons.run();
@@ -13,7 +14,6 @@ UI::UI(std::string option)
         //std::vector<string> words;
         std::vector<QString> Qwords;
         std::string line;
-
         while (std::getline(sanat, line)) {
             Qwords.push_back(QString(line.data()));
         }
@@ -34,10 +34,16 @@ UI::UI(std::string option)
             std::cout << std::endl;
         }
     }
+    //if console argument was not given, run GUI
     else {
         char **argv = {};
         int argc = 0;
         QApplication app(argc, argv);
+        QFont font;
+        font.setFamily("Arial");
+        font.setBold(true);
+        font.setPointSize(8);
+        QApplication::setFont(font);
         Window window;
         window.show();
         app.exec();

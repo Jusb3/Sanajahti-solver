@@ -15,6 +15,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<uint64_t>& v) {
     return os;
 }
 
+//init all the basic elements of the window.
 Window::Window()
 {
     this->setWindowTitle("Sanajahti");
@@ -81,7 +82,7 @@ Window::Window()
 
     //init mapper for pairing tile textChanged() signals to widget calling it
     mapper = new QSignalMapper(this);
-    connect(mapper, SIGNAL(mapped(int)), this, SLOT(valueChange(int)));
+    connect(mapper, SIGNAL(mapped(int)), this, SLOT(valueChanged(int)));
 
     path=QDir::currentPath();
 
@@ -89,7 +90,8 @@ Window::Window()
     makeGrid(4,4);
 }
 
-void Window::valueChange(int id)
+//when value of a tile is changed, jump to next
+void Window::valueChanged(int id)
 {
     tiles.at(id)->setText(tiles.at(id)->text().toUpper());
     if (id < tiles.length() - 1){
@@ -98,6 +100,7 @@ void Window::valueChange(int id)
     }
 }
 
+//solves the grid from phone.
 void Window::adb_start()
 {
     restart();
@@ -106,6 +109,7 @@ void Window::adb_start()
     gridChange();
     auto adbscr = ADBScreenshot(path.toStdString());
     bool success = adbscr.TakeScreenshot("grid.png");
+
     if(!success){
         QMessageBox::information(this, tr("Error"), QString("There was a problem with connecting to the phone via ADB."));
         return;
@@ -114,21 +118,33 @@ void Window::adb_start()
         QMessageBox::information(this, tr("Error"), QString("You need to specify the library to use!"));
         return;
     }
+
     OCR ocr;
     ocr.init("auto-generated_files/grid.png");
+
     if(ocr.findDots())
         ocr.getGridSize();
     else{
         QMessageBox::information(this, tr("Error"), QString("There was a problem identifying the grid."));
         return;
     }
+
     for (int a = 0; a < 16; a++)
         tiles.at(a)->setText(QString::fromStdString(ocr.identifyLetter(a%4-1, a/4-1)));
     solve();
+
     thread.init(ocr, result, path.toStdString());
     thread.start();
+    connect(&thread, SIGNAL(showMB()), this, SLOT(showMonkeyRunnerError())) ;
 }
 
+//show messagebox if Monkeyrunner return error.
+void Window::showMonkeyRunnerError()
+{
+    QMessageBox::information(this, tr("Error"), QString("There was a problem running the MonkeyRunner script."));
+}
+
+//solves the grid specified by user.
 void Window::manual_start()
 {
     list->clear();
@@ -143,6 +159,7 @@ void Window::manual_start()
     solve();
 }
 
+//calls the solver and sets elements properties.
 void Window::solve()
 {
 
@@ -162,12 +179,14 @@ void Window::solve()
     list->setEnabled(true);
 }
 
+//fill the list with all words found in the grid.
 void Window::fillList()
 {
     for (auto obj : result)
         list->addItem(QString::fromStdString(std::get<0>(obj)));
 }
 
+//returns true if all tiles of the grid contain a letter.
 bool Window::gridFilled()
 {
     for (int a=0; a < tiles.length(); a++)
@@ -176,6 +195,7 @@ bool Window::gridFilled()
     return true;
 }
 
+//saves the path of the library specified by user to field library_path and constructs solver with that library.
 void Window::browse()
 {
     library_path->setText(QFileDialog::getOpenFileName(this,tr("Library"), path, "All files (*)"));
@@ -189,6 +209,7 @@ void Window::browse()
     solver = SanajahtiSolver(Qwords);
 }
 
+//change the grid size to that spefied by ypanel and xpanel.
 void Window::gridChange()
 {
     int x = xpanel->text().toInt();
@@ -210,6 +231,7 @@ void Window::gridChange()
     makeGrid(x,y);
 }
 
+//adjust the grid to show the route of the word.
 void Window::drawWord(const QString &word)
 {
     int id2=-1;
@@ -219,32 +241,34 @@ void Window::drawWord(const QString &word)
             for (auto tileObj : tiles) {
                 lines.clear();
                 tileObj->setStyleSheet("background-color:grey;"
-                                   "color:black");
+                                       "color:black;");
             }
             for (auto route : obj.second) {
                 int id = route.first+getX() * route.second;
                 if(id2!=-1){
                     addLine(id,id2);
-                tiles.at(id)->setStyleSheet("background-color:green;"
-                                            "color:black;");
+                    tiles.at(id)->setStyleSheet("background-color:green;"
+                                                "color:black;");
                 }
                 else
                     tiles.at(id)->setStyleSheet("background-color:green;"
                                                 "color:black;"
-                                                "border: 2px solid red");
+                                                "border: 2px solid red;");
                 id2=id;
             }
             this->update();
         }
 }
 
+//appends line from start to end to lines
 void Window::addLine(int start, int end)
 {
     QLine line = QLine(tileMiddle(start), tileMiddle(end));
     lines.append(line);
 }
 
-void Window::paintEvent(QPaintEvent *event)
+//paints path lines to window
+void Window::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
     QPen pen;
@@ -254,6 +278,7 @@ void Window::paintEvent(QPaintEvent *event)
     p.drawLines(lines);
 }
 
+//returns coordinates to center of tile
 QPoint Window::tileMiddle(int id)
 {
     QPoint point=tiles.at(id)->pos();
@@ -262,6 +287,7 @@ QPoint Window::tileMiddle(int id)
     return point;
 }
 
+//creates grid of size x * y
 void Window::makeGrid(int x, int y)
 {
     for (int a = 0;a < x*y; a++){
@@ -275,6 +301,7 @@ void Window::makeGrid(int x, int y)
     this->setFixedSize(40*x, 115+40*y);
 }
 
+//returns the path of the library given.
 std::string Window::getLibrary()
 {
     return library_path->text().toUtf8().constData();
@@ -300,6 +327,7 @@ std::vector<uint64_t> Window::getGrid()
     return grid;
 }
 
+//resets window so editing grid is possible.
 void Window::restart()
 {
     restart_button->setHidden(true);
@@ -315,6 +343,7 @@ void Window::restart()
     lines.clear();
 }
 
+//return size of the x-axis of the grid.
 int Window::getX()
 {
     int x = xpanel->text().toInt();
@@ -325,6 +354,7 @@ int Window::getX()
     return x;
 }
 
+//return size of the y-axis of the grid.
 int Window::getY()
 {
     int y = ypanel->text().toInt();
@@ -335,6 +365,7 @@ int Window::getY()
     return y;
 }
 
+//creates tile to certain location and returns pointer to it.
 QLineEdit* Window::addTile(int x, int y)
 {
     QLineEdit* tile = new QLineEdit("",this);
