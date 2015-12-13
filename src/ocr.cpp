@@ -101,7 +101,8 @@ void OCR::getGridSize()
 
 }
 
-std::pair<std::pair<int,int>,std::pair<int,int>> OCR::track_dot(int x,int y)
+std::pair<std::pair<int,int>,std::pair<int,int>>
+OCR::track_dot(int x,int y)
 {
     img.setPixel(x,y,qRgb(0,255,0));
     std::pair<std::pair<int,int>,std::pair<int,int>> rect;
@@ -117,7 +118,8 @@ std::pair<std::pair<int,int>,std::pair<int,int>> OCR::track_dot(int x,int y)
     return rect;
 }
 
-std::pair<std::pair<int,int>,std::pair<int,int> > OCR::merge(std::pair<std::pair<int,int>,std::pair<int,int> > a, int x, int y)
+std::pair<std::pair<int,int>,std::pair<int,int>>
+OCR::merge(std::pair<std::pair<int,int>,std::pair<int,int>> a, int x, int y)
 {
     if(x < a.first.first)
         a.first.first = x;
@@ -130,7 +132,9 @@ std::pair<std::pair<int,int>,std::pair<int,int> > OCR::merge(std::pair<std::pair
     return a;
 }
 
-std::pair<std::pair<int,int>,std::pair<int,int> > OCR::merge(std::pair<std::pair<int,int>,std::pair<int,int> > a, std::pair<std::pair<int,int>,std::pair<int,int> > b)
+std::pair<std::pair<int,int>,std::pair<int,int>>
+OCR::merge(std::pair<std::pair<int,int>,std::pair<int,int>> a,
+           std::pair<std::pair<int,int>,std::pair<int,int> > b)
 {
     if(b.first.first < a.first.first)
         a.first.first = b.first.first;
