@@ -12,21 +12,24 @@
 // node of trie, stores info about, the character, children (chars and vector indices), parent, and if the word from
 // root to this node is a complete word
 struct TrieNode {
-    int parentIdx;
-    uint64_t nodeChar;
-    // vector of pairs (child char, child vector index)
+    int parentIdx; // parent index of Node, root has parent idx -1
+    uint64_t nodeChar;  // char of trie node, in custom 64-bit format
+    // children of Node, vector of pairs (child char, child vector index): { (char, idx), (char, idx) } etc.
     std::vector<std::pair<uint64_t, int>> children;
-    bool isWordEnd;
+    bool isWordEnd; // true if this node is an end of a word, can still have children (for other words)
+
+    // TrieNode constructor
     TrieNode(int parentIdx, uint64_t nodeChar): parentIdx(parentIdx), nodeChar(nodeChar), isWordEnd(false) {}
 };
 
 // The trie class itself, stores TrieNodes
 class Trie {
 public:
+    // empty constructor, only root is constructed, caller needs to add words
     Trie();
     // construct trie with words
     Trie(const std::vector<QString>& words);
-    // add word to trie
+    // add word to trie, uses a custom 64-bit format
     void add(const std::vector<uint64_t>& word);
     // get reference to a TrieNode
     const TrieNode& getNode(const int nodeIdx) const;

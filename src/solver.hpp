@@ -20,7 +20,9 @@ public:
     // constructs a Trie (prefix tree) and initializes variables
     SanajahtiSolver(const vector<QString>& words);
 
+    // default constructor, construct solver with no words so actually doesn't solve anything
     SanajahtiSolver();
+
     // does the solving, using the Trie
     // returns a vector of pairs where first pair is a word in Sanajahti, and second is the path of the word
     vector<pair<string, vector<pair<int, int>>>> solve(const vector<uint64_t>& grid, int x, int y);
