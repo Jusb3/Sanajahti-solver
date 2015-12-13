@@ -2,6 +2,7 @@
 #define WINDOW_H
 #pragma once
 #include "solver.hpp"
+#include "ui.hpp"
 #include <fstream>
 #include <QWidget>
 #include <QSignalMapper>
@@ -57,6 +58,4 @@ private slots:
     void drawWord(const QString& word);
     void restart();
 };
-bool longLex(const pair<string, vector<pair<int, int>>>& a,
-             const pair<string, vector<pair<int, int>>>& b);
 #endif

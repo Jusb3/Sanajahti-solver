@@ -39,7 +39,7 @@ bool ADBScreenshot::TakeScreenshot(const std::string &name)
     }
 
     // pull the file from the sdcard & remove it at the same time
-    std::string pull_cmd = std::string(path+extension+std::string(" pull /sdcard/sanajahtiscr.png ./") + name);
+    std::string pull_cmd = std::string(path+extension+std::string(" pull /sdcard/sanajahtiscr.png ./auto-generated_files/") + name);
     succ = system(pull_cmd.c_str());
     int rmsucc = system(std::string(path+extension+std::string(" shell rm /sdcard/sanajahtiscr.png")).c_str());
     if(succ != 0){
