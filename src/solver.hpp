@@ -42,17 +42,17 @@ private:
     uint64_t getTile(int x, int y);
 
     // size of sanajahti grid, x and y
-    int xsize_;
-    int ysize_;
+    int xsize;
+    int ysize;
 
     // string in which the grid is stored
-    vector<uint64_t> tiles_;
+    vector<uint64_t> tiles;
 
     // Trie of wordlist
-    Trie tr_;
+    Trie tr;
 
     // vector of results, cleared and rebuilt when solve() called
-    vector<pair<vector<uint64_t>, vector<pair<int, int>>>> results_;
+    vector<pair<vector<uint64_t>, vector<pair<int, int>>>> results;
 };
 
 

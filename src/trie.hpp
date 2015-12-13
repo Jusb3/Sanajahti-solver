@@ -37,7 +37,7 @@ public:
     int getSize();
 private:
     // the Trie nodes are stored in a vector (makes memory handling easier and should make cache locality better)
-    std::vector<TrieNode> store_;
+    std::vector<TrieNode> store;
 };
 
 
