@@ -53,6 +53,7 @@ TEST(Solver, 2) {
 	EXPECT_EQ(grid, correct) << "The function to64bitChars didn't produce the correct string";
 }
 
+
 // Test that x_size can be returned successfully
 TEST(GetX, 3) {
 	Console console;
@@ -83,22 +84,66 @@ TEST(GetGrid, 6) {
 	std::vector<uint64_t> test = console.getGrid();
 	std::vector<uint64_t> correct = {};
 	EXPECT_EQ(test, correct) << "Error in getting the grid";
-
 }
 
 
 // Test that the grid is valid
 TEST(IsValidGrid, 7) {
-	std::vector<std::string> test1 = {}; 				// Test an empty grid
+	std::vector<std::string> test1 = {};				// Test an empty grid
 	std::vector<std::string> test2 = {"a", "", "c"};	// Test a non rectancular grid
 
-	ASSERT_FALSE(isValidGrid(test1));
-	ASSERT_FALSE(isValidGrid(test2));
+	ASSERT_FALSE(isValidGrid(test1)) << "The grid wasn't empty although it should be";
+	ASSERT_FALSE(isValidGrid(test2)) << "The grid was rectangular even though it shouldn't be";
 }
 
 
+// Test that the function getSize in trie.cpp returns the correct amount of nodes
+TEST(GetNodeSize, 8) {
+	Trie trie;
+	int size = trie.getSize();
+	EXPECT_EQ(size, 1) << "Function getSize in trie.cpp returned a wrong amount of nodes";
+}
 
 
+// Test that the function getNode in trie.cpp returns successfully a node from trie
+TEST(GetNode, 9) {
+	std::vector<QString> words = {"auto", "auta"}; // Define, which words will be put into the trie
+	Trie trie(words); // Initialize the tree
+
+	uint64_t correct1_char = 97;	// ASCII letter a
+	uint64_t correct2_char = 117;	// ASCII letter u
+	uint64_t correct3_char = 116;	// ASCII letter t
+	uint64_t correct4_char = 111;	// ASCII letter o
+	int correct1_index = 1;			// The index of root node
+	int correct2_index = 2;			// The index of the first child node
+	int correct3_index = 3;			// The index of the second child node
+	int correct4_index = 4;			// The index of the third child node
+	int correct5_index = 5;			// The index of the fourth child node
+
+	// Get the output of the function getNode recursively
+	const auto node1_char = trie.getNode(0).children[0].first;
+	const auto node1_index = trie.getNode(0).children[0].second;
+	const auto node2_char = trie.getNode(node1_index).children[0].first;
+	const auto node2_index = trie.getNode(node1_index).children[0].second;
+	const auto node3_char = trie.getNode(node2_index).children[0].first;
+	const auto node3_index = trie.getNode(node2_index).children[0].second;
+	const auto node4_char = trie.getNode(node3_index).children[0].first;
+	const auto node4_index = trie.getNode(node3_index).children[0].second;
+	const auto node5_char = trie.getNode(node3_index).children[1].first;
+	const auto node5_index = trie.getNode(node3_index).children[1].second;
+
+	// Check the equality
+	EXPECT_EQ(node1_char, correct1_char) << "Incorrect char in the root node";
+	EXPECT_EQ(node1_index, correct1_index) << "Incorrect index for the root node";
+	EXPECT_EQ(node2_char, correct2_char) << "Incorrect char in the first child node";
+	EXPECT_EQ(node2_index, correct2_index) << "Incorrect index for the first child node";
+	EXPECT_EQ(node3_char, correct3_char) << "Incorrect char in the second child node";
+	EXPECT_EQ(node3_index, correct3_index) << "Incorrect index for the second child node";
+	EXPECT_EQ(node4_char, correct4_char) << "Incorrect char in the third child node";
+	EXPECT_EQ(node4_index, correct4_index) << "Incorrect index in the third child node";
+	EXPECT_EQ(node5_char, correct1_char) << "Incorrect char in the fourth child node";
+	EXPECT_EQ(node5_index, correct5_index) << "Incorrect index in the four";
+}
 
 
 
