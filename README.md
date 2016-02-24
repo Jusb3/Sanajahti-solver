@@ -4,7 +4,7 @@
 SanajahtiSolver is a program to solve the game Sanajahti. The game needs no
 further explanations. This program can either be used to manually input the game,
 and then solve it, or you can even solve Sanajahti games automatically with
-and Android phone.
+an Android phone.
 
 Basic usage can be seen from the following Youtube video: https://www.youtube.com/watch?v=4zfFo4Q2DFE
 
